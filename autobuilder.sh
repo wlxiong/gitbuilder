@@ -33,8 +33,8 @@ chmod a+w out/errcache
 did_something=1
 while [ -n "$did_something" ]; do
 	( cd build && 
-	  git remote show | xargs git remote prune && 
-	  git remote update )
+	  git remote show | timeout 60 xargs git remote prune && 
+	  timeout 60 git remote update )
 	did_something=
 	for branch in $(./branches.sh); do
 		ref=$(./next-rev.sh $branch)
