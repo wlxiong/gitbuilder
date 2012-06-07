@@ -26,6 +26,10 @@ _run()
 
 	log "Switching git branch..."
 	echo --START-IGNORE-WARNINGS
+	# clobber submodules; git clean won't remove them.
+	for sub in `git submodule -q foreach pwd`; do
+	    rm -rf $sub
+	done
 	git reset --hard HEAD  # in case there were modified files
 	git checkout "$commit" &&
 	git reset --hard $commit || 
