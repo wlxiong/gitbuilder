@@ -68,6 +68,7 @@ go()
 	# file based on our result code, however.
 	if [ "$CODE" = 0 ]; then
 		echo PASS
+		[ -x pass.sh ] && ./pass.sh $ref
 		mv -v out/log out/pass/$ref
 	else
 		echo FAIL
