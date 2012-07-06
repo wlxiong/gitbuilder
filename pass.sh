@@ -18,6 +18,7 @@ echo "rsync $commit to $target"
 rm -rf $out/tmp
 mkdir -p $out/tmp/sha1
 mkdir -p $out/tmp/ref
+mkdir -p $out/ref
 
 # sha1 dir
 mv $out/sha1/$commit $out/tmp/sha1
@@ -29,6 +30,10 @@ mv $out/sha1/$commit $out/tmp/sha1
     if [ "$sha1" = "$commit" ]; then
 	echo "branch $branch is $sha1"
 	ln -sf ../sha1/$commit $out/tmp/ref/$branch
+
+	# update it in the shared dir, too
+	rm -f $out/ref/$branch
+	ln -s ../sha1/$commit $out/ref/$branch
     fi
 done
 
