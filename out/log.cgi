@@ -24,6 +24,8 @@ if (-f "pass/$commit") {
     $fn = "pass/$commit";
 } elsif (-f "fail/$commit") {
     $fn = "fail/$commit";
+} elsif (-f "log") {
+    $fn = "log";
 } else {
     print h2("No log with that id.");
     exit 1;

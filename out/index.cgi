@@ -250,7 +250,7 @@ for my $bpb (sort { lc($a) cmp lc($b) } @branchlist) {
 	} elsif ($commit eq $currently_doing) {
 	    # currently building this one
 	    pushrow(@branchout, "BUILDING", 
-	            $commitlink, $email, "", $comment, "", "");
+	            $commitlink, $email, "build log", $comment, $logcgi, "");
 	    next;
 	} elsif ($last_was_pending == 0 && $print_pending) {
 	    # first pending in a group: print (Pending)
