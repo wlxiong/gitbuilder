@@ -9,9 +9,10 @@ $commit =~ s/[^0-9A-Za-z]/_/g;
 $commit =~ s/^\./_/;
 
 my $fn;
-$fn = "fail/$commit";
-if (-f $fn) {
-    unlink($fn);
+foreach $fn ("fail/$commit", "pass/$commit") {
+    if (-f $fn) {
+        unlink($fn);
+    }
 }
 
 print redirect(-location=>".");
