@@ -35,12 +35,6 @@ _run()
 	git reset --hard $commit || 
 	git reset --hard $commit || return 20
 	echo --STOP-IGNORE-WARNINGS
-
-	log "Which branch?"
-	git branch -v
-	log "Which tag?"
-	git describe --tags
-
 	
 	log "Cleaning..."
 	git clean -q -f -x -d || 
