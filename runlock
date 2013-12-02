@@ -64,8 +64,10 @@ def main():
     if not lockFile(filename):
         sys.exit(0)
     commands = args[2:]
-    ret = subprocess.call(commands)
-    unlockFile(filename)
+    try:
+        ret = subprocess.call(commands)
+    finally:
+        unlockFile(filename)
     sys.exit(ret)
 
 
