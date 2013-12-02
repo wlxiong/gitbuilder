@@ -31,9 +31,11 @@ _run()
 	    rm -rf $sub
 	done
 	git reset --hard HEAD  # in case there were modified files
+	git branch -v
 	git checkout "$commit" &&
 	git reset --hard $commit || 
 	git reset --hard $commit || return 20
+	git branch -v
 	echo --STOP-IGNORE-WARNINGS
 	
 	log "Cleaning..."
