@@ -37,10 +37,6 @@ bisect()
 	# build it first.
 	if [ -n "$pending" ]; then
 		echo $pending
-	elif [ -n "$fail" -a -n "$pass" ]; then
-		bisect $fail^ ^$pass
-	elif [ -n "$fail" -a "$last" != "$fail" -a -n "$last" ]; then
-		bisect $fail^ ^$last
 	fi
 
 	# if we don't print anything at all, it means there's nothing to build!

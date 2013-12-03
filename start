@@ -1,4 +1,4 @@
 #!/bin/bash
 DIR="$(dirname $0)"
 cd "$DIR"
-exec ./runlock lock ./autobuilder.sh
+exec ./add-rev.sh
