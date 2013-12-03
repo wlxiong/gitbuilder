@@ -50,6 +50,7 @@ done
 
 if [ -f "lock.lock" ]; then
 	exit 0
+fi
 
 ./runlock lock ./autobuilder.sh
 exit 0
