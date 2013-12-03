@@ -22,8 +22,6 @@ chmod a+x "$lib_a"
 ln -fs "$lib_a" libgfsclient.a
 
 cd "$gitdir"
-make -C testcases/perf clean && make -C testcases/perf
-make -C testcases/auto clean && make -C testcases/auto
-make -C testcases/compat clean && make -C testcases/compat
+make -C testcases clean && make -j 8 -C testcases CXX="ccache g++" || exit 3
 
 exit 0
