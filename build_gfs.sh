@@ -10,11 +10,6 @@
 #
 
 # Actually build the project
-[[ ! -h lib ]] && rm -rf lib
-[[ ! -d lib ]] && ln -sf ../build_lib/lib lib
+make clean && make -j 8 CXX="ccache g++"
 
-../build_gfs.sh && ../build_test.sh ||
-  ( rm lib && exit 3 )
-
-rm lib
 exit 0
