@@ -13,8 +13,12 @@
 [[ ! -h lib ]] && rm -rf lib
 [[ ! -d lib ]] && ln -sf ../build_lib/lib lib
 
-../build_gfs.sh && ../build_test.sh ||
-  ( rm lib && exit 3 )
-
+../build_gfs.sh && ../build_test.sh
+ret=$?
 rm lib
-exit 0
+
+if [ $ret == 0 ]; then
+	exit 0
+else
+	exit 3
+fi
