@@ -8,5 +8,6 @@
 /out/errcache
 /out/describe
 /build
+/build_lib
 *.lock
 /branches-local
