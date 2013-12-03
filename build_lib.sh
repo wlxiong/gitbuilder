@@ -10,11 +10,10 @@
 #
 
 # Actually build the project
-[[ -d build_lib ]] && rm -rf build_lib
-mkdir build_lib
+[[ -d build_lib ]] && rm -rf build_lib && mkdir build_lib
+
 git --git-dir=build/.git --work-tree=build_lib/ checkout HEAD -- lib &&
-  make -C build_lib/lib clean &&
-  make -C build_lib/lib ||
+  make -C build_lib/lib clean && make -C build_lib/lib ||
   exit 3
 
 exit 0

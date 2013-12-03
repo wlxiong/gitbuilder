@@ -10,10 +10,11 @@
 #
 
 # Actually build the project
-rm -rf lib/
-ln -sf ../build_lib/lib lib &&
-  make clean &&
-  make -j 8 ||
-  exit 3
+[[ ! -h lib ]] && rm -rf lib
+[[ ! -d lib ]] && ln -sf ../build_lib/lib lib
 
+make clean && make -j 8 ||
+  ( rm lib && exit 3 )
+
+rm lib
 exit 0
