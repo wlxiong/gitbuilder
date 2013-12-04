@@ -34,6 +34,16 @@ def install_conf():
     put('conf/*', gfs_conf_dir, mode=644)
 
 
+def install_log4cplus():
+    run('mkdir ~/src')
+    with cd('~/src'):
+        run("wget 'http://10.10.15.20/3rd_src/log4cplus-1.0.2.tar.gz'")
+        run('tar xvzf log4cplus-1.0.2.tar.gz')
+    with cd('~/src/log4cplus-1.0.2'):
+        run('./configure CXXFLAGS="$CXXFLAGS -include stdlib.h -include string.h -include stdio.h"')
+        run('make install')
+
+
 @roles('master')
 def install_master():
     put(gfs_build_dir + '/x_master/gfs_master', gfs_bin_dir, mode=755)
