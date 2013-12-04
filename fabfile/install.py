@@ -17,8 +17,8 @@ def install_bin():
 
 def install_conf():
     current_host = env.host_string
-    old_conf = open('conf/chunk_server.conf', 'r')
-    new_conf = open("conf/chunk_server_%s.conf" % current_host, 'w')
+    old_conf = open('conf/chunk_server1.conf', 'r')
+    new_conf = open("conf/chunk_server.conf", 'w')
     for line in old_conf:
         line = line.strip()
         pair = line.split('=')
@@ -31,7 +31,6 @@ def install_conf():
             new_conf.write("%s\n" % line)
     old_conf.close()
     new_conf.close()
-    os.rename("conf/chunk_server_%s.conf" % current_host, 'conf/chunk_server.conf')
     put('conf/*', gfs_conf_dir, mode=644)
 
 
