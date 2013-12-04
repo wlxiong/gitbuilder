@@ -16,7 +16,7 @@ def install_bin():
 
 
 def install_conf():
-    current_host = env.host_string[env.host_string.find('@'):]
+    current_host = env.host_string
     old_conf = open('conf/chunk_server.conf', 'r')
     new_conf = open("conf/chunk_server_%s.conf" % current_host, 'w')
     for line in old_conf:
@@ -25,9 +25,9 @@ def install_conf():
             key, value = pair
             if key.strip().lower() == 'ip':
                 value = current_host
-            new_conf.write("%s=%s\n" % (key, value))
+            new_conf.write("%s=%s" % (key, value))
         else:
-            new_conf.write(line + '\n')
+            new_conf.write(line)
     old_conf.close()
     new_conf.close()
     os.rename("conf/chunk_server_%s.conf" % current_host, 'conf/chunk_server.conf')
