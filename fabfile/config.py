@@ -28,7 +28,7 @@ env.roledefs['client'] = ['10.10.200.114',
                           '10.10.200.119']
 user = 'root1'
 
-gfs_build_dir   = "/home/%s/gitbuilder/build" % user
+gfs_build_dir   = "../build"
 gfs_install_dir = '/usr/local/gfs'
 gfs_bin_dir  = '/usr/local/gfs/bin'
 gfs_conf_dir = '/usr/local/gfs/conf'
