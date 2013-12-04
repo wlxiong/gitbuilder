@@ -1,5 +1,5 @@
 [REACTOR]
-ip=10.10.200.119
+ip=0.0.0.0
 heartbeat=5
 sync_chunk_num=256
 
@@ -77,4 +77,4 @@ fastlog.max.cmd.length=1024
 fastlog.log.dir=/usr/local/gfs/fast_log/
 
 [ELEGANT]
-need.elegant.stop=FALSE
+need.elegant.stop=TRUE

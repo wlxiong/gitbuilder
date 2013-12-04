@@ -18,20 +18,23 @@ def setup_install_dir():
     put('bin/*', gfs_bin_dir, mode=755)
     # upload conf/
     current_host = env.host_string
-    old_conf = open('conf/chunk_server1.conf', 'r')
-    new_conf = open("conf/chunk_server.conf", 'w')
-    for line in old_conf:
-        line = line.strip()
-        pair = line.split('=')
-        if len(pair) == 2:
-            key, value = pair
-            if key.strip().lower() == 'ip' and value.strip():
-                value = current_host
-            new_conf.write("%s=%s\n" % (key, value))
-        else:
-            new_conf.write("%s\n" % line)
-    old_conf.close()
-    new_conf.close()
+    txt_files = ['conf/chunk_server.txt', 'conf/chunk_server1.txt']
+    for filepath in txt_files:
+        pre, ext = os.path.splitext(filepath)
+        old_conf = open(filepath, 'r')
+        new_conf = open(pre + '.conf', 'w')
+        for line in old_conf:
+            line = line.strip()
+            pair = line.split('=')
+            if len(pair) == 2:
+                key, value = pair
+                if key.strip().lower() == 'ip' and value.strip():
+                    value = current_host
+                new_conf.write("%s=%s\n" % (key, value))
+            else:
+                new_conf.write("%s\n" % line)
+        old_conf.close()
+        new_conf.close()
     put('conf/*', gfs_conf_dir, mode=644)
 
 
@@ -88,6 +91,7 @@ def install_tester():
     run('rm -rf ' + gfs_test_dir)
     run('mkdir -p ' + gfs_test_dir + '/bin')
     run('mkdir -p ' + gfs_test_dir + '/conf')
+    run('mkdir -p ' + gfs_test_dir + '/result/info')
 
     for f in text_files:
         basename = os.path.basename(f)
