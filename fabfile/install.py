@@ -7,12 +7,12 @@ from config import *
 def create_install_dir():
     run('rm -rf ' + gfs_install_dir)
     run('mkdir -p ' + gfs_install_dir)
-    run("mkdir %s/bin" % gfs_bin_dir)
-    run("mkdir %s/conf" % gfs_conf_dir)
+    run('mkdir ' + gfs_bin_dir)
+    run('mkdir ' + gfs_conf_dir)
 
 
 def install_bin():
-    put('bin/*', gfs_bin_dir)
+    put('bin/*', gfs_bin_dir, mode=755)
 
 
 def install_conf():
@@ -67,6 +67,7 @@ def install_tester():
                   '/testcases/compat/start_compat_tester.sh',
                   '/testcases/FsShell/start_shell_tester.sh']
 
+    run('mkdir -p ' + gfs_test_dir + '/bin')
     for f in text_files:
         basename = os.path.basename(f)
         put(gfs_build_dir + f, gfs_test_dir + '/bin/' + basename, mode=755)
