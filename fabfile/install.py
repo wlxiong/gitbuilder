@@ -40,6 +40,8 @@ def install_log4cplus():
         with hide('output'):
             run('./configure CXXFLAGS="$CXXFLAGS -include stdlib.h -include string.h -include stdio.h"')
             run('make install')
+    run('ldconfig /usr/local/lib')
+    run('ldconfig -p | grep log4cplus')
 
 
 @roles('master')
