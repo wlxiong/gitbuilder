@@ -37,6 +37,6 @@ user = 'root1'
 
 gfs_build_dir   = "../build"
 gfs_install_dir = '/usr/local/gfs'
-gfs_bin_dir  = '/usr/local/gfs/bin'
-gfs_conf_dir = '/usr/local/gfs/conf'
+gfs_bin_dir  = gfs_install_dir + '/bin'
+gfs_conf_dir = gfs_install_dir + '/conf'
 gfs_test_dir = '/home/%s/gfstest' % user

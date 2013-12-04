@@ -6,9 +6,8 @@ from config import *
 
 def create_install_dir():
     run('rm -rf ' + gfs_install_dir)
-    run('mkdir -p ' + gfs_install_dir)
-    run('mkdir ' + gfs_bin_dir)
-    run('mkdir ' + gfs_conf_dir)
+    run('mkdir -p' + gfs_bin_dir)
+    run('mkdir -p' + gfs_conf_dir)
 
 
 def install_bin():
@@ -35,13 +34,16 @@ def install_conf():
 
 
 def install_log4cplus():
-    run('mkdir ~/src')
+    run('mkdir -p ~/src')
+    run('rm -rf ~/src/log4cplus-1.0.2')
     with cd('~/src'):
         run("wget 'http://10.10.15.20/3rd_src/log4cplus-1.0.2.tar.gz'")
-        run('tar xvzf log4cplus-1.0.2.tar.gz')
+        with hide('output'):
+            run('tar xvzf log4cplus-1.0.2.tar.gz')
     with cd('~/src/log4cplus-1.0.2'):
-        run('./configure CXXFLAGS="$CXXFLAGS -include stdlib.h -include string.h -include stdio.h"')
-        run('make install')
+        with hide('output'):
+            run('./configure CXXFLAGS="$CXXFLAGS -include stdlib.h -include string.h -include stdio.h"')
+            run('make install')
 
 
 @roles('master')
