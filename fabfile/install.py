@@ -20,14 +20,15 @@ def install_conf():
     old_conf = open('conf/chunk_server.conf', 'r')
     new_conf = open("conf/chunk_server_%s.conf" % current_host, 'w')
     for line in old_conf:
+        line = line.strip()
         pair = line.split('=')
         if len(pair) == 2:
             key, value = pair
-            if key.strip().lower() == 'ip':
+            if key.strip().lower() == 'ip' and value.strip():
                 value = current_host
-            new_conf.write("%s=%s" % (key, value))
+            new_conf.write("%s=%s\n" % (key, value))
         else:
-            new_conf.write(line)
+            new_conf.write("%s\n" % line)
     old_conf.close()
     new_conf.close()
     os.rename("conf/chunk_server_%s.conf" % current_host, 'conf/chunk_server.conf')
