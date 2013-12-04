@@ -4,17 +4,13 @@ from fabric.api import *
 from config import *
 
 
-def create_install_dir():
+def setup_install_dir():
     run('rm -rf ' + gfs_install_dir)
     run('mkdir -p' + gfs_bin_dir)
     run('mkdir -p' + gfs_conf_dir)
-
-
-def install_bin():
+    # install bin/
     put('bin/*', gfs_bin_dir, mode=755)
-
-
-def install_conf():
+    # install conf/
     current_host = env.host_string
     old_conf = open('conf/chunk_server1.conf', 'r')
     new_conf = open("conf/chunk_server.conf", 'w')
