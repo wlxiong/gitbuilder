@@ -78,11 +78,14 @@ def install_tester():
                   '/testcases/perf/crontab.txt',
                   '/testcases/compat/start_compat_tester.sh',
                   '/testcases/FsShell/start_shell_tester.sh']
-
+    run('rm -rf ' + gfs_test_dir)
     run('mkdir -p ' + gfs_test_dir + '/bin')
+    run('mkdir -p ' + gfs_test_dir + '/conf')
+
     for f in text_files:
         basename = os.path.basename(f)
         put(gfs_build_dir + f, gfs_test_dir + '/bin/' + basename, mode=755)
+    put('conf/log4cplus.client.test.properties', gfs_test_dir + '/conf/log4cplus.client.properties', mode=644)
 
     suffix = time.strftime('%Y%m%d', time.localtime(time.time()))
     put(gfs_build_dir + '/testcases/auto/tester',
