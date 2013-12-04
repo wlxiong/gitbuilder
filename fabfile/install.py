@@ -6,8 +6,8 @@ from config import *
 
 def setup_install_dir():
     run('rm -rf ' + gfs_install_dir)
-    run('mkdir -p' + gfs_bin_dir)
-    run('mkdir -p' + gfs_conf_dir)
+    run('mkdir -p ' + gfs_bin_dir)
+    run('mkdir -p ' + gfs_conf_dir)
     # install bin/
     put('bin/*', gfs_bin_dir, mode=755)
     # install conf/
