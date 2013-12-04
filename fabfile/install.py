@@ -91,7 +91,7 @@ def install_tester():
     run('rm -rf ' + gfs_test_dir)
     run('mkdir -p ' + gfs_test_dir + '/bin')
     run('mkdir -p ' + gfs_test_dir + '/conf')
-    run('mkdir -p ' + gfs_test_dir + '/result/info')
+    run('mkdir -p ' + gfs_test_dir + '/result')
 
     for f in text_files:
         basename = os.path.basename(f)
