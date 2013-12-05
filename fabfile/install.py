@@ -86,7 +86,6 @@ def install_tester():
     text_files = ['/testcases/auto/start_func_tester.sh',
                   '/testcases/perf/start_perf_tester.sh',
                   '/testcases/perf/crontab.txt',
-                  '/testcases/compat/start_compat_tester.sh',
                   '/testcases/FsShell/start_shell_tester.sh']
     run('rm -rf ' + gfs_test_dir)
     run('mkdir -p ' + gfs_test_dir + '/bin')
@@ -105,7 +104,5 @@ def install_tester():
         gfs_test_dir + '/bin/' + 'func_tester.' + suffix, mode=0755)
     put(gfs_build_dir + '/testcases/perf/tester',
         gfs_test_dir + '/bin/' + 'perf_tester.' + suffix, mode=0755)
-    put(gfs_build_dir + '/testcases/compat/tester',
-        gfs_test_dir + '/bin/' + 'compat_tester.' + suffix, mode=0755)
     put(gfs_build_dir + '/testcases/FsShell/FsShell_tester.py',
         gfs_test_dir + '/bin/' + 'FsShell_tester_' + suffix + '.py', mode=0755)
