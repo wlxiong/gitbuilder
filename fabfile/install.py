@@ -15,7 +15,7 @@ def clean_install_dir():
 
 def setup_install_dir():
     # upload bin/
-    put('bin/*', gfs_bin_dir, mode=755)
+    put('bin/*', gfs_bin_dir, mode=0755)
     # upload conf/
     current_host = env.host_string
     txt_files = ['conf/chunk_server.txt', 'conf/chunk_server1.txt']
@@ -35,7 +35,7 @@ def setup_install_dir():
                 new_conf.write("%s\n" % line)
         old_conf.close()
         new_conf.close()
-    put('conf/*', gfs_conf_dir, mode=644)
+    put('conf/*', gfs_conf_dir, mode=0644)
 
 
 def install_log4cplus():
@@ -55,30 +55,30 @@ def install_log4cplus():
 
 @roles('master')
 def install_master():
-    put(gfs_build_dir + '/x_master/gfs_master', gfs_bin_dir, mode=755)
+    put(gfs_build_dir + '/x_master/gfs_master', gfs_bin_dir, mode=0755)
 
 
 @roles('shadow')
 def install_shadow():
-    put(gfs_build_dir + '/x_shadow_master/gfs_shadow_master', gfs_bin_dir, mode=755)
+    put(gfs_build_dir + '/x_shadow_master/gfs_shadow_master', gfs_bin_dir, mode=0755)
 
 
 @roles('logger')
 def install_logger():
-    put(gfs_build_dir + '/log_server/gfs_master_logger', gfs_bin_dir, mode=755)
+    put(gfs_build_dir + '/log_server/gfs_master_logger', gfs_bin_dir, mode=0755)
 
 
 @roles('chunk')
 def install_chunk():
-    put(gfs_build_dir + '/chunk_server/chunk_server', gfs_bin_dir, mode=755)
+    put(gfs_build_dir + '/chunk_server/chunk_server', gfs_bin_dir, mode=0755)
     run('mkdir -p /data/conf')
     run('mkdir -p /data/chunk')
-    put('conf/diskImage.conf', '/data/conf/', mode=644)
+    put('conf/diskImage.conf', '/data/conf/', mode=0644)
 
 
 @roles('client')
 def install_client():
-    put(gfs_build_dir + '/sclient/FsShell', gfs_bin_dir, mode=755)
+    put(gfs_build_dir + '/sclient/FsShell', gfs_bin_dir, mode=0755)
 
 
 @roles('tester')
@@ -96,15 +96,15 @@ def install_tester():
 
     for f in text_files:
         basename = os.path.basename(f)
-        put(gfs_build_dir + f, gfs_test_dir + '/bin/' + basename, mode=755)
-    put('conf/log4cplus.client.test.properties', gfs_test_dir + '/conf/log4cplus.client.properties', mode=644)
+        put(gfs_build_dir + f, gfs_test_dir + '/bin/' + basename, mode=0755)
+    put('conf/log4cplus.client.test.properties', gfs_test_dir + '/conf/log4cplus.client.properties', mode=0644)
 
     suffix = time.strftime('%Y%m%d', time.localtime(time.time()))
     put(gfs_build_dir + '/testcases/auto/tester',
-        gfs_test_dir + '/bin/' + 'func_tester.' + suffix, mode=755)
+        gfs_test_dir + '/bin/' + 'func_tester.' + suffix, mode=0755)
     put(gfs_build_dir + '/testcases/perf/tester',
-        gfs_test_dir + '/bin/' + 'perf_tester.' + suffix, mode=755)
+        gfs_test_dir + '/bin/' + 'perf_tester.' + suffix, mode=0755)
     put(gfs_build_dir + '/testcases/compat/tester',
-        gfs_test_dir + '/bin/' + 'compat_tester.' + suffix, mode=755)
+        gfs_test_dir + '/bin/' + 'compat_tester.' + suffix, mode=0755)
     put(gfs_build_dir + '/testcases/FsShell/FsShell_tester.py',
-        gfs_test_dir + '/bin/' + 'FsShell_tester_' + suffix + '.py', mode=755)
+        gfs_test_dir + '/bin/' + 'FsShell_tester_' + suffix + '.py', mode=0755)
