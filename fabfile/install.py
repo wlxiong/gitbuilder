@@ -71,6 +71,7 @@ def install_logger():
 @roles('chunk')
 def install_chunk():
     put(gfs_build_dir + '/chunk_server/chunk_server', gfs_bin_dir, mode=0755)
+    run('rm -rf /data/*')
     run('mkdir -p /data/conf')
     run('mkdir -p /data/chunk')
     put('conf/diskImage.conf', '/data/conf/', mode=0644)
