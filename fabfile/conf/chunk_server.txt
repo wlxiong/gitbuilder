@@ -1,7 +1,5 @@
 [REACTOR]
 ip=0.0.0.0
-heartbeat=5
-sync_chunk_num=256
 
 [MASTER]
 ip=
@@ -22,58 +20,22 @@ chunk_server.listen.client.read.port=9007
 chunk_server.listen.client.write.port=9008
 chunk_server.listen.client.command.port=9009
 
-[QUEUE]
-rw2processor_queue_count=6
-rw2processor_queue_size=1000
-rw2processor_input_queue_size=1000
-rw2processor_output_queue_size=10000
-
 [PATH]
 root.directory=/usr/local
-scan_disk_time_interval=60
 
 [INVALID]
 dev.filename=/usr/local/gfs/conf/invalid_dev.conf
 
 [RESOURCELIMIT]
-max.open.file=65535
-max.hash.array.length=49152
-safe.space.precent=70
+safe.space.precent=12
 delete.expire.hour=0
 
-[DATA_BUFFER_POOL]
-data.buffer.capacity=10000
-
-[TIMER_CONTAINER]
-timer.container.capacity=5000
-
-[FSM_POOL]
-read.fsm.timeout=120
-write.fsm.timeout=120
-copy.move.fsm.timeout=300
-channel.info.timeout=120
-read.fsm.pool.capacity=2000
-write.fsm.pool.capacity=2000
-copy.move.fsm.pool.capacity=1000
-lease.fsm.pool.capacity=3000
-channel.info.pool.capacity=3000
-socket.channel.pool.capacity=10000
-copycode.fsm.pool.capacity=10000
-copycode.fsm.timeout=120
-copycode.thread.pool.capacity=10000
 
 [STATISTIC]
-stat.shm.key=20090513
 stat.server.dns=gfs.stat.sandai.net
 stat.server.port=80
-report.interval.ms=1000
 
 [FAST_LOG]
-fastlog.logfile.size=67108864
-fastlog.logfile.num=50
-fastlog.sync.size=4194304
-fastlog.interval.s=5
-fastlog.max.cmd.length=1024
 fastlog.log.dir=/usr/local/gfs/fast_log/
 
 [ELEGANT]
