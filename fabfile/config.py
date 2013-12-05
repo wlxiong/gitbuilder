@@ -1,14 +1,14 @@
 from fabric.api import env
 
 env.roles = ['tester', 'master', 'shadow', 'logger', 'chunk', 'client']
-env.hosts = [#'10.10.200.114',
+env.hosts = ['10.10.200.114',
              '10.10.200.115',
              '10.10.200.116',
              '10.10.200.117',
              '10.10.200.118',
              '10.10.200.119']
 env.user  = 'root1'
-env.passwords = {#'root1@10.10.200.114:22': 'N7AXKCRT41',
+env.passwords = {'root1@10.10.200.114:22': 'N7AXKCRT41',
                  'root1@10.10.200.115:22': 'RXFMMD2PA4',
                  'root1@10.10.200.116:22': '5VR0UTQHYK',
                  'root1@10.10.200.117:22': '5VR0UTQHYK',
@@ -21,13 +21,13 @@ env.roledefs['shadow'] = ['10.10.200.116',
 env.roledefs['logger'] = ['10.10.200.115',
                           '10.10.200.116',
                           '10.10.200.117']
-env.roledefs['chunk']  = [#'10.10.200.114',
+env.roledefs['chunk']  = ['10.10.200.114',
                           '10.10.200.115',
                           '10.10.200.116',
                           '10.10.200.117',
                           '10.10.200.118',
                           '10.10.200.119']
-env.roledefs['client'] = [#'10.10.200.114',
+env.roledefs['client'] = ['10.10.200.114',
                           '10.10.200.115',
                           '10.10.200.116',
                           '10.10.200.117',
