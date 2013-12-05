@@ -11,5 +11,5 @@ ref="$1"
 ./stop_all.sh
 
 # save test results
-cp -r /home/root1/gfstest/result/* ../out/test/$ref/
+cp -rv /home/root1/gfstest/result/* ../out/test/$ref/
 exit 0
