@@ -90,6 +90,7 @@ def install_tester():
                   '/testcases/FsShell/start_shell_tester.sh']
     run('rm -rf ' + gfs_test_dir)
     run('mkdir -p ' + gfs_test_dir + '/bin')
+    run('mkdir -p ' + gfs_test_dir + '/log')
     run('mkdir -p ' + gfs_test_dir + '/conf')
     run('mkdir -p ' + gfs_test_dir + '/result')
     run('touch /home/root1/gfstest/result/info')
