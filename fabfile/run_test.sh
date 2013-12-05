@@ -3,4 +3,4 @@ DIR=$(dirname $0)
 cd "$DIR"
 
 # start test
-fab start_func_test
+fab --command-timeout=600 start_func_test

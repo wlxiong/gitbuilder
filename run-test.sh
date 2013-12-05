@@ -10,8 +10,8 @@ fi
 
 ref="$1"
 
-mkdir -p out/test
-
-./test.sh $ref
+mkdir -p out/test/$ref/
+./test.sh $ref 2>&1
+mv -v out/log out/test/$ref/
 
 exit 0
