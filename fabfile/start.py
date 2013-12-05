@@ -20,8 +20,3 @@ def start_shadow():
 @roles('master')
 def start_master():
     run(gfs_bin_dir + '/daemo_gfs_master.sh')
-
-
-@roles('tester')
-def start_func_test():
-    run(gfs_test_dir + '/bin/start_func_tester.sh')

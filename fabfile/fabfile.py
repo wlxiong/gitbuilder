@@ -1,4 +1,4 @@
 from install import *
-from runtest import *
+from tests import *
 from start import *
 from stop import *
