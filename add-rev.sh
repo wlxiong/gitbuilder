@@ -27,7 +27,7 @@ if [ ! -x build.sh ]; then
 	exit 1
 fi
 
-mkdir -p out/pass out/fail out/ignore out/errcache out/pending
+mkdir -p out/pass out/fail out/ignore out/errcache out/pending out/test
 chmod a+w out/errcache
 
 ( cd build && 
