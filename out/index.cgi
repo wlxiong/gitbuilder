@@ -218,7 +218,7 @@ for my $bpb (sort { lc($a) cmp lc($b) } @branchlist) {
         sub pushrow(\@$$$$$$$)
         {
             my ($_branchout, $status, $commitlink,
-                $email, $codestr, $comment, $logcgi, $rebuildcgi) = @_;
+                $email, $codestr, $comment, $logcgi, $testlog) = @_;
                 
             my $statcode = status_to_statcode($status);
             
@@ -251,7 +251,7 @@ for my $bpb (sort { lc($a) cmp lc($b) } @branchlist) {
 	} elsif ($commit eq $currently_doing) {
 	    # currently building this one
 	    pushrow(@branchout, "BUILDING", 
-	            $commitlink, $email, "build log", $comment, $logcgi, "");
+	            $commitlink, $email, "build log", $comment, $logcgi, $testlog);
 	    next;
 	} elsif ($last_was_pending == 0 && $print_pending) {
 	    # first pending in a group: print (Pending)
