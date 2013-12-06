@@ -217,7 +217,7 @@ for my $bpb (sort { lc($a) cmp lc($b) } @branchlist) {
         sub pushrow(\@$$$$$$$)
         {
             my ($_branchout, $status, $commitlink,
-                $email, $codestr, $comment, $logcgi) = @_;
+                $email, $codestr, $comment, $logcgi, $rebuildcgi) = @_;
                 
             my $statcode = status_to_statcode($status);
             
@@ -266,7 +266,7 @@ for my $bpb (sort { lc($a) cmp lc($b) } @branchlist) {
 	my $status = ($warnmsg eq "ok") ? "ok" 
 	    : ($warnmsg =~ /^Warnings\(\d+\)$/) ? "Warn" : "FAIL";
 	pushrow(@branchout, $status,
-                $commitlink, $email, $warnmsg, $comment, $logcgi);
+                $commitlink, $email, $warnmsg, $comment, $logcgi, $rebuildcgi);
     }
     
     do_pending_dots(@branchout);
