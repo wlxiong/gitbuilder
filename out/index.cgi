@@ -210,6 +210,7 @@ for my $bpb (sort { lc($a) cmp lc($b) } @branchlist) {
 	my $failed;
 	my $logcgi = "log.cgi?log=$commit";
 	my $rebuildcgi = "rebuild.cgi?log=$commit";
+	my $testlog = "../test/$commit/";
 	$email =~ s/\@.*//;
 	my $commitlink = commitlink($commit, shorten($commit, 7, ""));
 	$comment =~ s/^\s*-?\s*//;
@@ -233,7 +234,9 @@ for my $bpb (sort { lc($a) cmp lc($b) } @branchlist) {
                         a({class=>"hyper", name=>$branch}, "") . div(
                           span({class=>"codestr"},
                             $logcgi ? a({-href=>$logcgi}, $codestr) : $codestr),
-                          span({class=>"comment"}, $comment)
+                          span({class=>"comment"}, $comment,
+                            ("$statcode" eq "ok" || "$statcode" eq "warn") ? "(" . 
+                              a({-href=>$testlog}, "Test Log") . ")" : "")
                         ))
                     );
             $branchprint = "";
