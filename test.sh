@@ -2,8 +2,6 @@
 DIR=$(dirname $0)
 cd "$DIR/fabfile"
 
-ref="$1"
-
 ./stop_all.sh &&
 ./install_all.sh &&
 ./start_all.sh &&
