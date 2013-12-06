@@ -14,5 +14,9 @@ foreach $fn ("fail/$commit", "pass/$commit") {
         unlink($fn);
     }
 }
+unless (-f "pending/$commit") {
+    system("touch pending/$commit");
+    system("../start > /dev/null 2>&1 &");
+}
 
 print redirect(-location=>".");
