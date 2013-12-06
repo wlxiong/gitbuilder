@@ -251,7 +251,7 @@ for my $bpb (sort { lc($a) cmp lc($b) } @branchlist) {
 	} elsif ($commit eq $currently_doing) {
 	    # currently building this one
 	    pushrow(@branchout, "BUILDING", 
-	            $commitlink, $email, "build log", $comment, $logcgi, $testlog);
+	            $commitlink, $email, "build log", $comment, $logcgi, "");
 	    next;
 	} elsif ($last_was_pending == 0 && $print_pending) {
 	    # first pending in a group: print (Pending)
@@ -269,7 +269,7 @@ for my $bpb (sort { lc($a) cmp lc($b) } @branchlist) {
 	my $status = ($warnmsg eq "ok") ? "ok" 
 	    : ($warnmsg =~ /^Warnings\(\d+\)$/) ? "Warn" : "FAIL";
 	pushrow(@branchout, $status,
-                $commitlink, $email, $warnmsg, $comment, $logcgi, $rebuildcgi);
+                $commitlink, $email, $warnmsg, $comment, $logcgi, $testlog);
     }
     
     do_pending_dots(@branchout);
