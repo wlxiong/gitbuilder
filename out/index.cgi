@@ -257,7 +257,6 @@ for my $bpb (sort { lc($a) cmp lc($b) } @branchlist) {
 	    # first pending in a group: print (Pending)
 	    pushrow(@branchout, "(Pending)",
 	            $commitlink, $email, "", $comment, "", "");
-	    $last_was_pending = 1;
 	    next;
 	} elsif ($last_was_pending == 0 && $print_pending) {
 	    # first pending in a group: print (Pending)
