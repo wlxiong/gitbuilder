@@ -10,8 +10,14 @@ fi
 
 ref="$1"
 
+mkdir -p out/test/tmp/
 mkdir -p out/test/$ref/
+touch out/test/$ref/TEST_IS_RUNNING
+
 ./test.sh $ref 2>&1
+
+rm -rf out/test/$ref/*
+mv -v out/test/tmp/* out/test/$ref/*
 mv -v out/log out/test/$ref/setup_log
 
 exit 0
