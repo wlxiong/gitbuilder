@@ -25,7 +25,7 @@ bisect()
 			# there might be more than one fail; we want the
 			# last one
 			fail=$commit
-		elif [ -z "$pending" -a -z "$fail" ]; then
+		elif [ -z "$pending" -a -z "$fail" ] && [ -z "$pass" ]; then
 			# and we only want the first pending build,
 			# and only if it's *not* following a failed build
 			pending=$commit
