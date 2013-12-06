@@ -258,11 +258,11 @@ for my $bpb (sort { lc($a) cmp lc($b) } @branchlist) {
 	    pushrow(@branchout, "(Pending)",
 	            $commitlink, $email, "", $comment, "", "");
 	    next;
-	} elsif ($last_was_pending == 0 && $print_pending) {
+	} elsif ($print_pending) {
 	    # first pending in a group: print (Pending)
 	    pushrow(@branchout, "N/A",
 	            $commitlink, $email, "", $comment, "", "");
-	    $last_was_pending = 1;
+	    $last_was_pending++;
 	    next;
 	} else {
 	    # no info yet: just count, don't print
