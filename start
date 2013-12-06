@@ -1,4 +1,5 @@
 #!/bin/bash
 DIR="$(dirname $0)"
 cd "$DIR"
-exec ./add-rev.sh
+
+LC_ALL=en_US.UTF-8 exec ./add-rev.sh
