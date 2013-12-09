@@ -5,6 +5,7 @@ cd "$DIR"
 # setup gfs
 fab clean_install_dir
 fab setup_install_dir
+fab setup_chunk_conf
 fab install_master
 fab install_shadow
 fab install_logger

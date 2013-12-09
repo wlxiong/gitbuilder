@@ -1,6 +1,5 @@
 from fabric.api import env
 
-env.parallel = True
 env.roles = ['tester', 'master', 'shadow', 'logger', 'chunk', 'client']
 env.hosts = ['10.10.200.114',
              '10.10.200.115',

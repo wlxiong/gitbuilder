@@ -4,6 +4,7 @@ from fabric.api import *
 from config import *
 
 
+@parallel
 def clean_install_dir():
     run('rm -rf ' + gfs_install_dir)
     run('mkdir -p ' + gfs_bin_dir)
@@ -13,10 +14,15 @@ def clean_install_dir():
     run('mkdir -p ' + gfs_install_dir + '/redo_log')
 
 
+@parallel
 def setup_install_dir():
     # upload bin/
     put('bin/*', gfs_bin_dir, mode=0755)
     # upload conf/
+    put('conf/*', gfs_conf_dir, mode=0644)
+
+
+def setup_chunk_conf():
     current_host = env.host_string
     txt_files = ['conf/chunk_server.txt', 'conf/chunk_server1.txt']
     for filepath in txt_files:
@@ -35,9 +41,11 @@ def setup_install_dir():
                 new_conf.write("%s\n" % line)
         old_conf.close()
         new_conf.close()
-    put('conf/*', gfs_conf_dir, mode=0644)
+        put(new_conf.name, gfs_conf_dir, mode=0644)
+        local('rm ' + new_conf.name)
 
 
+@parallel
 def install_log4cplus():
     run('mkdir -p ~/src')
     run('rm -rf ~/src/log4cplus-1.0.2')
@@ -53,21 +61,25 @@ def install_log4cplus():
     run('ldconfig -p | grep log4cplus')
 
 
+@parallel
 @roles('master')
 def install_master():
     put(gfs_build_dir + '/x_master/gfs_master', gfs_bin_dir, mode=0755)
 
 
+@parallel
 @roles('shadow')
 def install_shadow():
     put(gfs_build_dir + '/x_shadow_master/gfs_shadow_master', gfs_bin_dir, mode=0755)
 
 
+@parallel
 @roles('logger')
 def install_logger():
     put(gfs_build_dir + '/log_server/gfs_master_logger', gfs_bin_dir, mode=0755)
 
 
+@parallel
 @roles('chunk')
 def install_chunk():
     put(gfs_build_dir + '/chunk_server/chunk_server', gfs_bin_dir, mode=0755)
@@ -77,11 +89,13 @@ def install_chunk():
     put('conf/diskImage.conf', '/data/conf/', mode=0644)
 
 
+@parallel
 @roles('client')
 def install_client():
     put(gfs_build_dir + '/sclient/FsShell', gfs_bin_dir, mode=0755)
 
 
+@parallel
 @roles('tester')
 def install_tester():
     text_files = ['/testcases/auto/start_func_tester.sh',
