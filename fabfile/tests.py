@@ -5,6 +5,7 @@ from config import *
 @roles('tester')
 def start_func_test():
     with settings(warn_only=True):
+        run('ulimit -c unlimited')
         run(gfs_test_dir + '/bin/start_func_tester.sh')
 
 
