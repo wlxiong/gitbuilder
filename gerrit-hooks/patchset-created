@@ -1,0 +1,28 @@
+#!/bin/bash
+
+# patchset-created 
+# --change <change id> 
+change=$2
+# --is-draft <boolean> 
+is_draft=$4
+# --change-url <change url> 
+change_url=$6
+# --project <project name> 
+project=$8
+# --branch <branch> 
+branch=$10
+# --topic <topic> 
+topic=$12
+# --uploader <uploader> 
+uploader=$14
+# --commit <sha1> 
+commit=$16
+# --patchset <patchset id>
+patchset=$18
+
+if [ -z "$AUTOBUILDER_PATH" ]; then
+    echo "AUTOBUILDER_PATH is not set."
+    exit 1
+fi
+
+$AUTOBUILDER_PATH/add-change.sh $project $commit
