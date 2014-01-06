@@ -10,15 +10,15 @@ change_url=$6
 # --project <project name> 
 project=$8
 # --branch <branch> 
-branch=$10
+branch=${10}
 # --topic <topic> 
-topic=$12
+topic=${12}
 # --uploader <uploader> 
-uploader=$14
+uploader=${14}
 # --commit <sha1> 
-commit=$16
+commit=${16}
 # --patchset <patchset id>
-patchset=$18
+patchset=${18}
 
 if [ -z "$AUTOBUILDER_PATH" ]; then
     echo "AUTOBUILDER_PATH is not set."
