@@ -1,11 +1,5 @@
 #!/bin/bash
 DIR=$(dirname $0)
-cd "$DIR/fabfile"
+cd "$DIR/ci-test"
 
-./stop_all.sh &&
-./install_all.sh &&
-./start_all.sh &&
-./run_test.sh
-./stop_all.sh
-
-exit 0
+./func_test.py 600 && exit 0
