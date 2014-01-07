@@ -8,44 +8,45 @@ from nodepool import NodePool
 gfs_test_dir = '/home/root1/gfstest'
 
 master = NodePool.get()
-shadow = NodePool.get()
+shadow1 = NodePool.get()
+shadow2 = NodePool.get()
+shadows = [shadow1, shadow2]
 chunk1 = NodePool.get()
 chunk2 = NodePool.get()
 chunk3 = NodePool.get()
-chunk4 = NodePool.get()
-chunks = [chunk1, chunk2, chunk3, chunk4]
+chunks = [chunk1, chunk2, chunk3]
 tester = master
 
 
 def setup_domain_names():
     NodePool.setup_domain_names(
         {master.ip: 'master.gfs.gdrive logserver.gfs.gdrive',
-         shadow.ip: 'shadow-master.gfs.gdrive logserver.gfs.gdrive'},
-        [master, shadow] + chunks)
+         shadow1.ip: 'shadow-master.gfs.gdrive logserver.gfs.gdrive',
+         shadow2.ip: 'shadow-master.gfs.gdrive logserver.gfs.gdrive'},
+        [master, shadow1] + chunks)
 
 
 def deploy_gfs():
-    NodePool.batch_clean([master, shadow] + chunks)
-    NodePool.batch_deploy('chunk', [master, shadow] + chunks)
-    NodePool.batch_deploy('logger', [master, shadow])
-    shadow.deploy('shadow')
+    NodePool.batch_clean([master] + shadows + chunks)
+    NodePool.batch_deploy('chunk', [master] + shadows + chunks)
+    NodePool.batch_deploy('logger', [master] + shadows)
+    NodePool.batch_deploy('shadow', shadows)
     master.deploy('master')
     master.deploy('shell')
-    tester.deploy('tester')
 
 
 def start_gfs():
-    NodePool.batch_start('chunk', [master, shadow] + chunks)
-    NodePool.batch_start('logger', [master, shadow])
-    shadow.start('shadow')
+    NodePool.batch_start('chunk', [master] + shadows + chunks)
+    NodePool.batch_start('logger', [master] + shadows)
+    NodePool.batch_start('shadow', shadows)
     master.start('master')
 
 
 def stop_gfs():
     master.kill('master')
-    shadow.kill('shadow')
-    NodePool.batch_kill('logger', [master, shadow])
-    NodePool.batch_kill('chunk', [master, shadow] + chunks)
+    NodePool.batch_kill('shadow', shadows)
+    NodePool.batch_kill('logger', [master] + shadows)
+    NodePool.batch_kill('chunk', [master] + shadows + chunks)
 
 
 def deploy_tester():
