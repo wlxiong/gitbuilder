@@ -17,6 +17,13 @@ chunks = [chunk1, chunk2, chunk3, chunk4]
 tester = master
 
 
+def setup_domain_names():
+    NodePool.setup_domain_names(
+        {master.ip: 'master.gfs.gdrive logserver.gfs.gdrive',
+         shadow.ip: 'shadow-master.gfs.gdrive logserver.gfs.gdrive'},
+        [master, shadow] + chunks)
+
+
 def deploy_gfs():
     NodePool.batch_clean([master, shadow] + chunks)
     NodePool.batch_deploy('chunk', [master, shadow] + chunks)
@@ -42,10 +49,10 @@ def stop_gfs():
 
 
 def deploy_tester():
-    text_files = ['/testcases/auto/start_func_tester.sh',
-                  '/testcases/perf/start_perf_tester.sh',
-                  '/testcases/perf/crontab.txt',
-                  '/testcases/FsShell/start_shell_tester.sh']
+    text_files = ['testcases/auto/start_func_tester.sh',
+                  'testcases/perf/start_perf_tester.sh',
+                  'testcases/perf/crontab.txt',
+                  'testcases/FsShell/start_shell_tester.sh']
     tester.run('rm -rf ' + gfs_test_dir)
     tester.run('mkdir -p ' + gfs_test_dir + '/bin')
     tester.run('mkdir -p ' + gfs_test_dir + '/log')
@@ -56,7 +63,7 @@ def deploy_tester():
     gfs_build_dir = config.config_parser.get('DEFAULT', 'gfs_path')
     for f in text_files:
         basename = os.path.basename(f)
-        tester.put(gfs_build_dir + f, gfs_test_dir + '/bin/' + basename, mode=0755)
+        tester.put(os.path.join(gfs_build_dir, f), gfs_test_dir + '/bin/' + basename, mode=0755)
     tester.put('conf/log4cplus.client.test.properties',
                os.path.join(gfs_test_dir, 'conf/log4cplus.client.properties'), mode=0644)
 
@@ -86,6 +93,7 @@ def main():
         print "Usage: %s timeout" % sys.argv[0]
         sys.exit(2)
 
+    setup_domain_names()
     deploy_gfs()
     deploy_tester()
     try:
