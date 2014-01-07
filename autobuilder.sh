@@ -10,6 +10,7 @@ while [ "$(ls -A out/pending)" ]; do
         if [ -f out/pass/$ref ]; then
             ./run-test.sh $ref | tee out/log
         fi
+        ./submit-review.sh $ref
         rm $file
     done
 done
