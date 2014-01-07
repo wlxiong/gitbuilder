@@ -40,10 +40,13 @@ for branch in $(./branches.sh); do
 		echo "$branch: already up to date."
 		continue;
 	fi
+	echo -n "`date --rfc-3339=seconds` add change $ref: " >> $DIR/event_log
 	if [ -e "out/pass/$ref" -o -e "out/fail/$ref" ]; then
 		echo "$branch: weird, already built $ref!"
+		echo "already built" >> $DIR/event_log"
 		continue
 	fi
+	echo "accept" >> $DIR/event_log"
 	echo "Add commit $branch: $ref"
 	touch "out/pending/$ref"
 	echo "git" > out/pending/$ref
