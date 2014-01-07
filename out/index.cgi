@@ -210,7 +210,7 @@ for my $bpb (sort { lc($a) cmp lc($b) } @branchlist) {
 	my $failed;
 	my $logcgi = "log.cgi?log=$commit";
 	my $rebuildcgi = "rebuild.cgi?log=$commit";
-	my $testlog = "../test/$commit/";
+	my $testlog = "../test-log/$commit/";
 	$email =~ s/\@.*//;
 	my $commitlink = commitlink($commit, shorten($commit, 7, ""));
 	$comment =~ s/^\s*-?\s*//;
