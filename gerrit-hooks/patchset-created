@@ -1,29 +1,31 @@
-#!/bin/bash
+#!/bin/bash -x
 
 # Example: ./patchset-created --change Ib37a1e1dd122b081a654aefed65cf584af6f3e9d --is-draft 1 --change-url "http://10.10.200.115/r/1" --project gfs --branch 4.0.0 --topic "" --uploader admin --commit b7f4d0614c9564c8d0eee19229e94809f71c1744 --patchset b7f4d0614c9564c8d0eee19229e94809f71c1744
-# patchset-created 
-# --change <change id> 
+# patchset-created
+# --change <change id>
 change=$2
-# --is-draft <boolean> 
+# --is-draft <boolean>
 is_draft=$4
-# --change-url <change url> 
+# --change-url <change url>
 change_url=$6
-# --project <project name> 
+# --project <project name>
 project=$8
-# --branch <branch> 
+# --branch <branch>
 branch=${10}
-# --topic <topic> 
+# --topic <topic>
 topic=${12}
-# --uploader <uploader> 
+# --uploader <uploader>
 uploader=${14}
-# --commit <sha1> 
+# --commit <sha1>
 commit=${16}
 # --patchset <patchset id>
 patchset=${18}
 
-if [ -z "$AUTOBUILDER_PATH" ]; then
-    echo "AUTOBUILDER_PATH is not set."
-    exit 1
-fi
+# if [ -z "$AUTOBUILDER_PATH" ]; then
+#     echo "AUTOBUILDER_PATH is not set."
+#     exit 1
+# fi
 
-$AUTOBUILDER_PATH/add-change.sh $project $commit
+AUTOBUILDER_PATH=/home/root1/autobuilder
+command="nohup /bin/bash -l -c \"$AUTOBUILDER_PATH/add-change.sh $project $commit > autobuilder.out 2> autobuilder.err < /dev/null &\""
+ssh root@10.10.200.116 "$command"
