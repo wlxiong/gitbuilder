@@ -2,6 +2,6 @@
 DIR=$(dirname $0)
 cd "$DIR/ci-tests"
 
-./func_test.py 600 && exit 0
+PYTHONPATH=$PYTHONPATH:../gfs/testcases/stubbercase/autodeploy ./func_test.py 600 && exit 0
 
 exit 1
