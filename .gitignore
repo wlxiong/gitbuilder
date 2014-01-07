@@ -15,3 +15,5 @@
 *.lock
 *.pyc
 /branches-local
+/gfs
+/pystubber
