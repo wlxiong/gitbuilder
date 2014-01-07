@@ -71,7 +71,7 @@ def deploy_tester():
 
 def start_tester(timeout):
     tester.run('ulimit -c unlimited')
-    tester.run(os.path.join(gfs_test_dir, '/bin/start_func_tester.sh'), timeout=timeout)
+    tester.run(os.path.join(gfs_test_dir, 'bin/start_func_tester.sh'), timeout=timeout)
 
 
 def save_test_log():
