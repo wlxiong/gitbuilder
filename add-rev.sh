@@ -46,6 +46,7 @@ for branch in $(./branches.sh); do
 	fi
 	echo "Add commit $branch: $ref"
 	touch "out/pending/$ref"
+	echo "git" > out/pending/$ref
 done
 
 if [ -f "lock.lock" ]; then

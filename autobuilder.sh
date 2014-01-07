@@ -10,7 +10,10 @@ while [ "$(ls -A out/pending)" ]; do
         if [ -f out/pass/$ref ]; then
             ./run-test.sh $ref | tee out/log
         fi
-        ./submit-review.sh $ref
+        submitter=$(cat $file)
+        if [ $submitter == "gerrit" ]; then
+            ./submit-review.sh $ref
+        fi
         rm $file
     done
 done

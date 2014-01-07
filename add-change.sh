@@ -17,6 +17,7 @@ fi
 
 echo "Add change: $commit"
 touch "out/pending/$commit"
+echo "gerrit" > out/pending/$commit
 
 if [ -f "lock.lock" ]; then
     exit 0
