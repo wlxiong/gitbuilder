@@ -14,6 +14,6 @@ if [ $build == "PASS" -a $tests == "PASS" ]; then
 else
     score="-1"
 
-url="http://10.10.200.115/gitbuilder"
-message="Build status: $build (log: $url/log.cgi?log=$ref)    Test status: $tests (log: $url/test/$ref/)"
+url="http://10.10.200.116"
+message="Build status: $build (log: $url/autobuilder/log.cgi?log=$ref)    Test status: $tests (log: $url/test-log/$ref/)"
 ssh -p 29418 admin@10.10.15.20 gerrit review --project gfs --verified $score --message '"$message"' $ref
