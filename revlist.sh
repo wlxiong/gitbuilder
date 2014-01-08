@@ -3,7 +3,7 @@ DIR=$(dirname $0)
 cd "$DIR/build"
 
 nrev=1
-mrev=20
+mrev=10
 passed=0
 #ls ../out/pass/* |
 #	sed -e 's,^\(.*/\)*\([0-9a-f]*\).*$,^\2^,g' |

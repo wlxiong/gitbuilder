@@ -14,6 +14,7 @@ fi
 
 git show-ref -d |
 	grep -v ' refs/heads/' |
+	grep -v ' refs/remotes/gerrit/changes/' |
 	grep -v '/HEAD$' |
 	sed -e 's, [^/]*/[^/]*/, ,' -e 's,\^{},,' |
 	tac |
