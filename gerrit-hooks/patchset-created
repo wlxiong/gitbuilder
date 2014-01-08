@@ -1,31 +1,49 @@
-#!/bin/bash -x
+#!/usr/bin/env python
+import os
+import sys
+import getopt
+import subprocess
 
-# Example: ./patchset-created --change Ib37a1e1dd122b081a654aefed65cf584af6f3e9d --is-draft 1 --change-url "http://10.10.200.115/r/1" --project gfs --branch 4.0.0 --topic "" --uploader admin --commit b7f4d0614c9564c8d0eee19229e94809f71c1744 --patchset b7f4d0614c9564c8d0eee19229e94809f71c1744
 # patchset-created
 # --change <change id>
-change=$2
 # --is-draft <boolean>
-is_draft=$4
 # --change-url <change url>
-change_url=$6
 # --project <project name>
-project=$8
 # --branch <branch>
-branch=${10}
 # --topic <topic>
-topic=${12}
 # --uploader <uploader>
-uploader=${14}
 # --commit <sha1>
-commit=${16}
 # --patchset <patchset id>
-patchset=${18}
 
-# if [ -z "$AUTOBUILDER_PATH" ]; then
-#     echo "AUTOBUILDER_PATH is not set."
-#     exit 1
-# fi
 
-AUTOBUILDER_PATH=/home/root1/autobuilder
-command="nohup /bin/bash -l -c \"$AUTOBUILDER_PATH/add-change.sh $project $commit > autobuilder.out 2> autobuilder.err < /dev/null &\""
-ssh root@10.10.200.116 "$command"
+def main():
+    try:
+        opts, args = getopt.getopt(sys.argv[1:], "",
+                                   ["change=", "is-draft=", "change-url=", "project=",
+                                    "branch=", "topic=", "uploader=", "commit=", "patchset="])
+    except getopt.GetoptError, err:
+        print >> sys.stderr, str(err)
+        sys.exit(2)
+
+    project = None
+    commit = None
+
+    for o, a in opts:
+        if o == '--project':
+            project = a
+        elif o == '--commit':
+            commit = a
+    print project, commit
+    
+    if project is None or commit is None:
+        print >> sys.stderr, "cannot find --project or --commit argument"
+        sys.exit(2)
+
+    script = "/home/root1/autobuilder/add-change.sh"
+    command = "nohup /bin/bash -l -c \"%s %s %s > autobuilder.out 2> autobuilder.err < /dev/null &\"" % \
+              (script, project, commit)
+    subprocess.call(["ssh", 'root@10.10.200.116', command])
+
+
+if __name__ == '__main__':
+    main()
