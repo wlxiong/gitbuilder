@@ -3,6 +3,7 @@ DIR="$(dirname $0)"
 cd "$DIR"
 
 ref=$1
+msg=$2
 
 build="FAIL"
 [ -f out/pass/$ref ] && build="PASS"
@@ -16,5 +17,5 @@ else
 fi
 
 url="http://10.10.200.116"
-message="\"Build status: $build (log: $url/autobuilder/log.cgi?log=$ref)    Test status: $tests (log: $url/test-log/$ref/)\""
+message="\"$msg    Build status: $build (log: $url/autobuilder/log.cgi?log=$ref)    Test status: $tests (log: $url/test-log/$ref/)\""
 ssh -p 29418 autobuilder@10.10.15.20 gerrit review --project gfs --verified $score --message "$message" $ref
