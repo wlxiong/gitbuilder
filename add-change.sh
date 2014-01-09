@@ -5,6 +5,8 @@ cd "$DIR"
 project=$1
 commit=$2
 
+[ $project == "gfs" ] || exit 0
+
 echo -n "`date --rfc-3339=seconds` add change $commit: " >> $DIR/event_log
 
 ( cd build && 
