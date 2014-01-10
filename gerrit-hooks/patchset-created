@@ -33,6 +33,10 @@ def main():
             project = a
         elif o == '--commit':
             commit = a
+        elif o == '--branch':
+            branch = a
+            if branch not in ('dev', '4.0.0'):
+                sys.exit(0)
     print project, commit
     
     if project is None or commit is None:
