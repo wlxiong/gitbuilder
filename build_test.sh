@@ -23,5 +23,6 @@ ln -fs "$lib_a" libgfsclient.a
 
 cd "$gitdir"
 make -C testcases clean && make -j 8 -C testcases CXX="ccache g++" || exit 3
+make -C testcases/unit clean && make -j 8 -C testcases/unit CXX="ccache g++" || exit 3
 
 exit 0
