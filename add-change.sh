@@ -10,7 +10,7 @@ commit=$2
 echo -n "`date --rfc-3339=seconds` add change $commit: " >> $DIR/event_log
 
 ( cd build && 
-  git remote show | timeout 60 xargs git remote prune && 
+  git remote show && 
   timeout 60 git remote update &&
   timeout 60 git fetch gerrit refs/changes/*:refs/remotes/gerrit/changes/* )
 

@@ -1,0 +1,47 @@
+#!/usr/bin/env python
+import os
+import sys
+import getopt
+import subprocess
+
+# change-merged 
+# --change <change id> 
+# --change-url <change url> 
+# --project <project name> 
+# --branch <branch> 
+# --topic <topic> 
+# --submitter <submitter> 
+# --commit <sha1>
+
+
+def main():
+    try:
+        opts, args = getopt.getopt(sys.argv[1:], "",
+                                   ["change=", "change-url=", "project=",
+                                    "branch=", "topic=", "submitter=", "commit="])
+    except getopt.GetoptError, err:
+        print >> sys.stderr, str(err)
+        sys.exit(2)
+
+    project = None
+    commit = None
+
+    for o, a in opts:
+        if o == '--project':
+            project = a
+        elif o == '--commit':
+            commit = a
+    print project, commit
+    
+    if project is None or commit is None:
+        print >> sys.stderr, "cannot find --project or --commit argument"
+        sys.exit(2)
+
+    script = "/home/root1/autobuilder/add-change.sh"
+    command = "nohup /bin/bash -l -c \"%s %s %s > autobuilder.out 2> autobuilder.err < /dev/null &\"" % \
+              (script, project, commit)
+    subprocess.call(["ssh", 'root@10.10.200.116', command])
+
+
+if __name__ == '__main__':
+    main()
