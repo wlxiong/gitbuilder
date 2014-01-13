@@ -10,10 +10,11 @@
 #
 
 # Actually build the project
-[[ -d build_lib ]] && rm -rf build_lib
-mkdir build_lib
+[[ -d build_gmock ]] && rm -rf build_gmock
+mkdir build_gmock
 
-git --git-dir=gfs/.git --work-tree=build_lib/ checkout HEAD -- lib
-make -C build_lib/lib clean && make -C build_lib/lib CXX="ccache g++" || exit 3
+gmock=testcases/unit/gmock
+git --git-dir=gfs/.git --work-tree=build_gmock/ checkout HEAD -- $gmock
+make -C build_gmock/$gmock clean && make -C build_gmock/$gmock gmock CXX="ccache g++" || exit 3
 
 exit 0

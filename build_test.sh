@@ -9,7 +9,14 @@
 # You might want to run ./configure here, make, make test, etc.
 #
 
-# Actually build the project
+# build unit test
+gmock=testcases/unit/gmock
+[[ ! -h $gmock ]] && rm -rf $gmock
+[[ ! -d $gmock ]] && ln -sf $PWD/../build_gmock/testcases/unit/gmock $gmock
+make -C testcases/unit clean && make -j 8 -C testcases/unit CXX="ccache g++" || exit 3
+rm $gmock
+
+# build ci test
 gitdir="`pwd`"
 lib_a="libgfsclient.a.3.6.2.20130723_dca0cce"
 svn_include_path="http://10.10.16.252/bin_svn/xl_download/download_server/gfs/pkg/release/gfs_3.6/3.6.2.20130723_dca0cce/include"
@@ -23,6 +30,5 @@ ln -fs "$lib_a" libgfsclient.a
 
 cd "$gitdir"
 make -C testcases clean && make -j 8 -C testcases CXX="ccache g++" || exit 3
-make -C testcases/unit clean && make -j 8 -C testcases/unit CXX="ccache g++" || exit 3
 
 exit 0
