@@ -7,7 +7,7 @@ while [ "$(ls -A out/pending)" ]; do
         set -m
         ref=`basename $file`
         # check code style
-        check_msg=$(./check_format.sh $ref)
+        astyle_msg=$(./check_format.sh $ref)
         if [ $? == 0 ]; then
             # run build
             ./run-build.sh $ref | tee out/log
@@ -20,7 +20,7 @@ while [ "$(ls -A out/pending)" ]; do
         # submit review
         submitter=$(cat $file)
         if [ $submitter == "gerrit" ]; then
-            ./submit-review.sh $ref "$check_msg"
+            ./submit-review.sh $ref "$astyle_msg"
         fi
         rm $file
     done
