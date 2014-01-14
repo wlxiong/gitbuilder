@@ -13,8 +13,7 @@ shadow2 = NodePool.get()
 shadows = [shadow1, shadow2]
 chunk1 = NodePool.get()
 chunk2 = NodePool.get()
-chunk3 = NodePool.get()
-chunks = [chunk1, chunk2, chunk3]
+chunks = [chunk1, chunk2]
 tester = master
 
 
