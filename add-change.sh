@@ -9,6 +9,9 @@ commit=$2
 
 echo -n "`date --rfc-3339=seconds` add change $commit: " >> $DIR/event_log
 
+mkdir -p out/pass out/fail out/ignore out/errcache out/pending out/test out/bin
+chmod a+w out/errcache
+
 ( cd build && 
   git remote show && 
   timeout 60 git remote update &&

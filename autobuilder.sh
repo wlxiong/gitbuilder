@@ -13,6 +13,7 @@ while [ "$(ls -A out/pending)" ]; do
             ./run-build.sh $ref | tee out/log
             # run test
             if [ -f out/pass/$ref ]; then
+                ./archive-bin.sh $ref
                 ./run-test.sh $ref | tee out/log
             fi
         fi

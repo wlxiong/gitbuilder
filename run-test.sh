@@ -18,9 +18,10 @@ touch out/test/$ref/TEST_IS_RUNNING
 ./test.sh $ref 2>&1
 ret=$?
 
-rm -f out/test/$ref/TEST_IS_RUNNING
 mv -v out/test/tmp/* out/test/$ref/
 mv -v out/log out/test/$ref/setup_log
+rm -f out/test/$ref/TEST_IS_RUNNING
+rm -rf out/test/tmp
 
 if [ $ret == 0 ]; then
     touch out/test/$ref/PASS
