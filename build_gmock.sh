@@ -13,8 +13,8 @@
 [[ -d build_gmock ]] && rm -rf build_gmock
 mkdir build_gmock
 
-gmock=testcases/unit/gmock
-git --git-dir=gfs/.git --work-tree=build_gmock/ checkout HEAD -- $gmock
-make -C build_gmock/$gmock clean && make -C build_gmock/$gmock gmock CXX="ccache g++" || exit 3
+unittest=testcases/unit
+git --git-dir=gfs/.git --work-tree=build_gmock/ checkout HEAD -- $unittest
+make -C build_gmock/$unittest clean && make -C build_gmock/$unittest gmock CXX="ccache g++" || exit 3
 
 exit 0

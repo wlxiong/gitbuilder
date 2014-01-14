@@ -12,6 +12,7 @@
 /out/log
 /build
 /build_lib
+/build_gmock
 *.lock
 *.pyc
 /branches-local

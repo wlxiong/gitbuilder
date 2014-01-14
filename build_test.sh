@@ -14,7 +14,6 @@ gmock=testcases/unit/gmock
 [[ ! -h $gmock ]] && rm -rf $gmock
 [[ ! -d $gmock ]] && ln -sf $PWD/../build_gmock/testcases/unit/gmock $gmock
 make -C testcases/unit clean && make -j 8 -C testcases/unit CXX="ccache g++" || exit 3
-rm $gmock
 
 # build ci test
 gitdir="`pwd`"
