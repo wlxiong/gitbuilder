@@ -22,5 +22,5 @@ message="\"
  $astyle_msg
  Build status: $build (log: $url/autobuilder/log.cgi?log=$ref)
  Test status: $tests (log: $url/test-log/$ref/)
- Download binary: $url/nightly-build/gfs-bin-${ref:0:8}.tar.gz\""
+ Download binary: $url/nightly-build/gfs-bin-${ref:0:7}.tar.gz\""
 ssh -p 29418 autobuilder@10.10.15.20 gerrit review --project gfs --verified $score --message "$message" $ref

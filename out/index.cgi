@@ -211,7 +211,7 @@ for my $bpb (sort { lc($a) cmp lc($b) } @branchlist) {
 	my $logcgi = "log.cgi?log=$commit";
 	my $rebuildcgi = "rebuild.cgi?log=$commit";
 	my $testlog = "../test-log/$commit/";
-	my $shortcommit = substr $commit, 0, 8;
+	my $shortcommit = substr $commit, 0, 7;
 	my $nightly = "../nightly-build/gfs-bin-$shortcommit.tar.gz";
 	$email =~ s/\@.*//;
 	my $commitlink = commitlink($commit, shorten($commit, 7, ""));
