@@ -10,12 +10,12 @@
 #
 
 # Actually build the project
-[[ ! -h lib ]] && rm -rf lib
-[[ ! -d lib ]] && ln -sf ../build_lib/lib lib
+[[ ! -h lib/3rd ]] && rm -rf lib/3rd
+[[ ! -d lib/3rd ]] && ln -sf ../../build_lib/lib/3rd lib/3rd
 
 ../build_gfs.sh && ../build_test.sh
 ret=$?
-rm lib
+rm lib/3rd
 
 if [ $ret == 0 ]; then
 	exit 0
