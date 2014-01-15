@@ -22,25 +22,33 @@ fi
 # use astyle to check code style
 tmpfile=/tmp/astyle.$$
 newfiles=`git diff --name-status $last_commit $cur_commit | grep ^[AM] | awk '/\.(c|h|cc|cpp|cxx|hpp|ipp)$/{print $2}'`
+file_num=0
+max_file=3
+file_list=""
 for file in $newfiles
 do
   m1=`git cat-file blob $cur_commit:$file | tee /tmp/astyle.$$ | md5sum`
   m2=`astyle -NjA1 -z2 < /tmp/astyle.$$ | md5sum`
   diff=`astyle -NjA1 -z2 < /tmp/astyle.$$ | diff /tmp/astyle.$$ -`
-  if [ -n "$diff" ]
-  then
+  if [ "$m1" != "$m2" ]; then
     pass=0
-    echo "$file: style check fail, please use 'astyle -NjA1 -z2 FILE' to restyle"
-    echo "$diff"
-   fi
+    [ $file_num -lt $max_file ] && file_list="$file $file_list"
+    file_num=$(( $file_num + 1 ))
+  fi
 done
-
-# rm -fr /tmp/astyle.$$
 
 echo -n "Check file type and style: "
 if [ $pass -eq 0 ]; then
   echo "FAIL"
-  exit 1
 else
   echo "PASS"
 fi
+
+if [ -n "$file_list" ]; then
+  echo " Apply 'astyle -NjA1 -z2 FILE' to:"
+  echo "   $file_list... $file_num file(s) in total."
+fi
+# rm -fr /tmp/astyle.$$
+
+[ $pass -eq 0 ] && exit 1
+exit 0
