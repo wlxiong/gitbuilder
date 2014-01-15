@@ -10,7 +10,6 @@
 #
 
 # Actually build the project
-make -C lib/ clean && make -C lib/ -j 8 CXX="ccache g++" || exit 3
 make clean && make -j 8 CXX="ccache g++" || exit 3
 
 exit 0
