@@ -14,7 +14,7 @@
 mkdir build_gmock
 
 unittest=testcases/unit
-git --git-dir=build/.git --work-tree=build_gmock/ checkout HEAD -- $unittest
+git --git-dir=build/.git --work-tree=build_gmock/ checkout gerrit/dev -- $unittest
 make -C build_gmock/$unittest clean && make -C build_gmock/$unittest gmock CXX="ccache g++" || exit 3
 
 exit 0

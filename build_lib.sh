@@ -13,7 +13,7 @@
 [[ -d build_lib ]] && rm -rf build_lib
 mkdir build_lib
 
-git --git-dir=build/.git --work-tree=build_lib/ checkout HEAD -- lib
-make -C build_lib/lib clean && make -C build_lib/lib CXX="ccache g++" || exit 3
+git --git-dir=build/.git --work-tree=build_lib/ checkout gerrit/dev -- lib/3rd
+cd build_lib/lib/3rd && ./build.sh || exit 3
 
 exit 0
