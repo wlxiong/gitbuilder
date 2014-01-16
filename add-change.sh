@@ -4,6 +4,7 @@ cd "$DIR"
 
 project=$1
 commit=$2
+force=$3
 
 [ "$project" == "gfs" ] || exit 0
 
@@ -19,10 +20,16 @@ chmod a+w out/errcache
 
 if [ -e "out/pass/$commit" -o -e "out/fail/$commit" ]; then
     echo "'$commit': weird, already built $commit!"
-    echo "already built" >> $DIR/event_log
-    exit 0
+    if [ "$force" == "-f" ]; then
+        rm -f out/pass/$commit out/fail/$commit
+        echo "force rebuild" >> $DIR/event_log
+    else
+        echo "already built" >> $DIR/event_log
+        exit 0
+    fi
+else
+    echo "accept" >> $DIR/event_log
 fi
-echo "accept" >> $DIR/event_log
 
 echo "Add change: $commit"
 touch "out/pending/$commit"
