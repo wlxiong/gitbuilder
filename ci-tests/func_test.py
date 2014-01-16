@@ -49,6 +49,33 @@ def stop_gfs():
     NodePool.batch_kill('chunk', [master] + shadows + chunks)
 
 
+def is_crash(roles, nodes):
+    crashed_roles = {}
+    for node in nodes:
+        if node.ip not in crashed_roles:
+            crashed_roles[node.ip] = []
+        running_roles = node.list()
+        for role in roles:
+            if role not in running_roles:
+                crashed_roles[node.ip].append(role)
+    return crashed_roles
+
+
+def any_crash():
+    crashed_roles = {}
+    crashed_roles.update(is_crash(['master', 'logger', 'chunk'], master))
+    crashed_roles.update(is_crash(['shadow', 'logger', 'chunk'], shadows))
+    crashed_roles.update(is_crash(['chunk'], chunks))
+    if crashed_roles:
+        print "\nRoles crashed in test:"
+        for addr in crashed_roles:
+            print "%s: " % addr,
+            for role in crashed_roles[addr]:
+                print role,
+            print
+        raise Exception("Roles crashed in test")
+
+
 def deploy_tester():
     text_files = ['testcases/auto/start_func_tester.sh',
                   'testcases/perf/start_perf_tester.sh',
@@ -100,6 +127,7 @@ def main():
     try:
         start_gfs()
         start_tester(timeout)
+        any_crash()
     except:
         sys.exit(1)
     finally:
