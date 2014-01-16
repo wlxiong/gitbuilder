@@ -51,7 +51,7 @@ def stop_gfs():
 
 def is_crash(roles, nodes):
     crashed_roles = {}
-    running_roles = NodePool.batch_list(nodes)
+    running_roles = dict(NodePool.batch_list(nodes))
     for node in nodes:
         for role in roles:
             if role not in running_roles[node]:
