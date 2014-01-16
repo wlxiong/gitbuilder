@@ -49,6 +49,7 @@ if [ -n "$file_list" ]; then
   echo "   $file_list... $file_num file(s) in total."
 fi
 # rm -fr /tmp/astyle.$$
+mv -v out/log out/test/$ref/format_check_log
 
 [ $pass -eq 0 ] && exit 1
 exit 0
