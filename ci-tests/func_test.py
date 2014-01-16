@@ -52,27 +52,28 @@ def stop_gfs():
 def is_crash(roles, nodes):
     crashed_roles = {}
     for node in nodes:
-        if node.ip not in crashed_roles:
-            crashed_roles[node.ip] = []
         running_roles = node.list()
         for role in roles:
             if role not in running_roles:
+                if node.ip not in crashed_roles:
+                    crashed_roles[node.ip] = []
                 crashed_roles[node.ip].append(role)
     return crashed_roles
 
 
 def any_crash():
     crashed_roles = {}
-    crashed_roles.update(is_crash(['master', 'logger', 'chunk'], master))
+    crashed_roles.update(is_crash(['master', 'logger', 'chunk'], [master]))
     crashed_roles.update(is_crash(['shadow', 'logger', 'chunk'], shadows))
     crashed_roles.update(is_crash(['chunk'], chunks))
     if crashed_roles:
-        print "\nRoles crashed in test:"
+        print >> sys.stderr, "\nRoles crashed in test:"
         for addr in crashed_roles:
-            print "%s: " % addr,
+            print >> sys.stderr, "%s:" % addr,
             for role in crashed_roles[addr]:
-                print role,
-            print
+                print >> sys.stderr, role,
+            print >> sys.stderr
+        print >> sys.stderr
         raise Exception("Roles crashed in test")
 
 
@@ -128,8 +129,6 @@ def main():
         start_gfs()
         start_tester(timeout)
         any_crash()
-    except:
-        sys.exit(1)
     finally:
         save_test_log()
         stop_gfs()
