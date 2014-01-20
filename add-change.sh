@@ -39,5 +39,5 @@ if [ -f "lock.lock" ]; then
     exit 0
 fi
 
-./runlock lock ./autobuilder.sh
+./runlock lock ./autoreview.sh
 exit 0

@@ -31,7 +31,7 @@ mkdir -p out/pass out/fail out/ignore out/errcache out/pending out/test out/nigh
 chmod a+w out/errcache
 
 ( cd build && 
-  git remote show | timeout 60 xargs git remote prune && 
+  git remote show && 
   timeout 60 git remote update )
 
 for branch in $(./branches.sh); do
@@ -56,5 +56,5 @@ if [ -f "lock.lock" ]; then
 	exit 0
 fi
 
-./runlock lock ./autobuilder.sh
+./runlock lock ./autobuild.sh
 exit 0
