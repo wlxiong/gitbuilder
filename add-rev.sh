@@ -2,7 +2,10 @@
 DIR="$(dirname $0)"
 cd "$DIR"
 
-force=$1
+project=$1
+force=$2
+
+[ "$project" == "gfs" ] || exit 0
 
 if [ ! -d build/. ]; then
 	echo >&2
@@ -24,17 +27,14 @@ chmod a+w out/errcache
 
 for branch in $(./branches.sh); do
 	ref=$(./next-rev.sh $branch)
-	if [ -z "$ref" ]; then
-		echo "$branch: already up to date."
-		continue;
-	fi
 	echo -n "`date --rfc-3339=seconds` add rev $ref: " >> $DIR/event_log
 	if [ -e "out/pass/$ref" -o -e "out/fail/$ref" ]; then
-		echo "$branch: weird, already built $ref!"
+		echo "$branch: already built $ref!"
 		if [ "$force" == "-f" ]; then
-		    rm -f out/pass/$commit out/fail/$commit
+		    rm -f out/pass/$ref out/fail/$ref
 		    echo "force rebuild" >> $DIR/event_log
 		else
+			echo "$branch: already up to date."
 		    echo "already built" >> $DIR/event_log
 		    continue
 		fi

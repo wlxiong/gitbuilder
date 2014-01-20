@@ -8,8 +8,6 @@ force=$3
 
 [ "$project" == "gfs" ] || exit 0
 
-echo -n "`date --rfc-3339=seconds` add change $commit: " >> $DIR/event_log
-
 mkdir -p out/pass out/fail out/ignore out/errcache out/pending out/test out/nightly
 chmod a+w out/errcache
 
@@ -18,8 +16,9 @@ chmod a+w out/errcache
   ../timeout.sh 60 git remote update &&
   ../timeout.sh 60 git fetch gerrit refs/changes/*:refs/remotes/gerrit/changes/* )
 
+echo -n "`date --rfc-3339=seconds` add change $commit: " >> $DIR/event_log
 if [ -e "out/pass/$commit" -o -e "out/fail/$commit" ]; then
-    echo "'$commit': weird, already built $commit!"
+    echo "'$commit': already built $commit!"
     if [ "$force" == "-f" ]; then
         rm -f out/pass/$commit out/fail/$commit
         echo "force rebuild" >> $DIR/event_log

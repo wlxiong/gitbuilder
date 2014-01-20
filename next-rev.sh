@@ -14,27 +14,13 @@ bisect()
 }
 
 ../revlist.sh "$@" | (
-	pass=
-	fail=
 	pending=
 	while read commit junk; do
-		if [ -e ../out/pass/$commit ]; then
-			# only a maximum of one pass is ever received
-			pass=$commit
-		elif [ -e ../out/fail/$commit ]; then
-			# there might be more than one fail; we want the
-			# last one
-			fail=$commit
-		elif [ -z "$pending" -a -z "$fail" ] && [ -z "$pass" ]; then
-			# and we only want the first pending build,
-			# and only if it's *not* following a failed build
-			pending=$commit
-		fi
-		last=$commit
+		# always return the first commit in this branch
+		pending=$commit
+		break;
 	done
 	
-	# if a pending build came before the first failed build, then we need to
-	# build it first.
 	if [ -n "$pending" ]; then
 		echo $pending
 	fi

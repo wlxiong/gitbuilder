@@ -25,7 +25,6 @@ def main():
 
     project = None
     commit = None
-    branch = None
 
     for o, a in opts:
         if o == '--project':
@@ -43,7 +42,8 @@ def main():
         sys.exit(2)
 
     script = "/home/root1/autobuilder/add-rev.sh"
-    command = "nohup /bin/bash -l -c \"%s > autobuilder.out 2> autobuilder.err < /dev/null &\"" % script
+    command = "nohup /bin/bash -l -c \"%s %s > autobuilder.out 2> autobuilder.err < /dev/null &\"" % \
+              (script, project)
     subprocess.call(["ssh", 'root@10.10.200.116', command])
 
 
