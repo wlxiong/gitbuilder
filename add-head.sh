@@ -21,13 +21,13 @@ fi
 mkdir -p out/pass out/fail out/ignore out/errcache out/pending out/test out/nightly
 chmod a+w out/errcache
 
-( cd build && 
-  git remote show && 
+( cd build &&
+  git remote show &&
   ../timeout.sh 60 git remote update )
 
 for branch in $(./branches.sh); do
 	ref=$(./next-rev.sh $branch)
-	echo -n "`date --rfc-3339=seconds` add rev $ref: " >> $DIR/event_log
+	echo -n "`date --rfc-3339=seconds` add HEAD $ref: " >> $DIR/event_log
 	if [ -e "out/pass/$ref" -o -e "out/fail/$ref" ]; then
 		echo "$branch: already built $ref!"
 		if [ "$force" == "-f" ]; then
@@ -41,7 +41,7 @@ for branch in $(./branches.sh); do
 	else
 		echo "accept" >> $DIR/event_log
 	fi
-	echo "Add rev $branch: $ref"
+	echo "Add HEAD $branch: $ref"
 	touch "out/pending/$ref"
 	echo "git" > out/pending/$ref
 done

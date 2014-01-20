@@ -41,7 +41,7 @@ def main():
         print >> sys.stderr, "cannot find --project or --commit argument"
         sys.exit(2)
 
-    script = "/home/root1/autobuilder/add-rev.sh"
+    script = "/home/root1/autobuilder/add-head.sh"
     command = "nohup /bin/bash -l -c \"%s %s > autobuilder.out 2> autobuilder.err < /dev/null &\"" % \
               (script, project)
     subprocess.call(["ssh", 'root@10.10.200.116', command])
