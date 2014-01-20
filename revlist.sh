@@ -7,7 +7,7 @@ mrev=10
 passed=0
 #ls ../out/pass/* |
 #	sed -e 's,^\(.*/\)*\([0-9a-f]*\).*$,^\2^,g' |
-git rev-list --first-parent --pretty='format:%H %ce %s' "$@" |
+git rev-list --first-parent --pretty='format:%H %ae %s' "$@" |
 	while read commit email comment; do
 		[ "$commit" = "commit" ] && continue
 		if [ -f ../out/ignore/$commit ]; then
