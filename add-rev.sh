@@ -13,20 +13,6 @@ if [ ! -d build/. ]; then
 	exit 2
 fi
 
-if [ -e build.sh -a ! -x build.sh ]; then
-	chmod a+x build.sh
-fi
-
-if [ ! -x build.sh ]; then
-	echo >&2
-	echo "We need an executable file named build.sh in this directory" >&2
-	echo "in order to run the autobuilder." >&2
-	echo >&2
-	echo "Try copying build.sh.example as a starting point." >&2
-	echo >&2
-	exit 1
-fi
-
 mkdir -p out/pass out/fail out/ignore out/errcache out/pending out/test out/nightly
 chmod a+w out/errcache
 
