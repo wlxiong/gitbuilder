@@ -18,7 +18,7 @@ chmod a+w out/errcache
 
 ( cd build && 
   git remote show && 
-  timeout 60 git remote update )
+  ./timeout.sh 60 git remote update )
 
 for branch in $(./branches.sh); do
 	ref=$(./next-rev.sh $branch)

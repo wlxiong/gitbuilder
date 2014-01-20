@@ -15,8 +15,8 @@ chmod a+w out/errcache
 
 ( cd build && 
   git remote show && 
-  timeout 60 git remote update &&
-  timeout 60 git fetch gerrit refs/changes/*:refs/remotes/gerrit/changes/* )
+  ./timeout.sh 60 git remote update &&
+  ./timeout.sh 60 git fetch gerrit refs/changes/*:refs/remotes/gerrit/changes/* )
 
 if [ -e "out/pass/$commit" -o -e "out/fail/$commit" ]; then
     echo "'$commit': weird, already built $commit!"
