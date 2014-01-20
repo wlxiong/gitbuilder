@@ -2,6 +2,8 @@
 DIR="$(dirname $0)"
 cd "$DIR"
 
+force=$1
+
 if [ ! -d build/. ]; then
 	echo >&2
 	echo "We need a directory named build/ in this directory." >&2
@@ -26,14 +28,20 @@ for branch in $(./branches.sh); do
 		echo "$branch: already up to date."
 		continue;
 	fi
-	echo -n "`date --rfc-3339=seconds` add change $ref: " >> $DIR/event_log
+	echo -n "`date --rfc-3339=seconds` add rev $ref: " >> $DIR/event_log
 	if [ -e "out/pass/$ref" -o -e "out/fail/$ref" ]; then
 		echo "$branch: weird, already built $ref!"
-		echo "already built" >> $DIR/event_log
-		continue
+		if [ "$force" == "-f" ]; then
+		    rm -f out/pass/$commit out/fail/$commit
+		    echo "force rebuild" >> $DIR/event_log
+		else
+		    echo "already built" >> $DIR/event_log
+		    continue
+		fi
+	else
+		echo "accept" >> $DIR/event_log
 	fi
-	echo "accept" >> $DIR/event_log
-	echo "Add commit $branch: $ref"
+	echo "Add rev $branch: $ref"
 	touch "out/pending/$ref"
 	echo "git" > out/pending/$ref
 done
