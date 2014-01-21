@@ -27,7 +27,7 @@ chmod a+w out/errcache
 
 for branch in $(./branches.sh); do
 	ref=$(./next-rev.sh $branch)
-	echo -n "`date --rfc-3339=seconds` add HEAD   $ref: " >> $DIR/event_log
+	echo -n "`date --rfc-3339=seconds` add HEAD $ref: " >> $DIR/event_log
 	if [ -e "out/pass/$ref" -o -e "out/fail/$ref" ]; then
 		echo "$branch: already built $ref!"
 		if [ "$force" == "-f" ]; then
