@@ -296,6 +296,9 @@ for my $bpb (sort { lc($a) cmp lc($b) } @branchlist) {
 }
 
 print end_table();
+my $update_time = `cat ../event_log | grep HEAD | tail -n 1 | awk \'{ print \$1, \$2 }\'`;
+print div({align=>"center"}, "Updated at $update_time");
+
 print div({class=>"extraspace"}, "&nbsp;");
 print end_html;
 exit 0;
