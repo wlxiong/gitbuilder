@@ -14,7 +14,7 @@ chmod a+w out/errcache
   ../timeout.sh 60 git remote update &&
   ../timeout.sh 60 git fetch gerrit refs/changes/*:refs/remotes/gerrit/changes/* )
 
-echo -n "`date --rfc-3339=seconds` add SHA1 $commit: " >> $DIR/event_log
+echo -n "`date +"%Y-%m-%d %T"` add SHA1 $commit: " >> $DIR/event_log
 if [ -e "out/pass/$commit" -o -e "out/fail/$commit" ]; then
     echo "already built $commit!"
     if [ "$force" == "-f" ]; then
