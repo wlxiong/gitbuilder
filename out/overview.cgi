@@ -26,7 +26,7 @@ sub summarize_gitbuilder {
 print "<html>\n";
 print "<head>\n";
 print "<script src=\"http://code.jquery.com/jquery-latest.js\"></script>\n";
-print "<title>GFS autobuilders</title><link rel=\"stylesheet\" type=\"text/css\" href=\"gitbuilder.css\" />";
+print "<title>GFS autobuilders</title><link rel=\"stylesheet\" type=\"text/css\" href=\"overview.css\" />";
 print "<META HTTP-EQUIV=\"REFRESH\" CONTENT=\"600\">\n";
 print "</head>\n";
 print "<body>";
@@ -44,7 +44,7 @@ if ($url) {
                 print "<tr><td align=left id=\"most_recent\" 
 nowrap=\"nowrap\"><a href=\"$url\">$url</a></td><td id=\"most_recent\"><div 
 id=\"num$n\">...loading...</div></td></tr>\n";
-                $script .= "\$\(\"#num$n\"\).load(\"/overview.cgi?url=$url\");\n";
+                $script .= "\$\(\"#num$n\"\).load(\"/autobuilder/overview.cgi?url=$url\");\n";
                 $n++;
         }
         print "</table>";
