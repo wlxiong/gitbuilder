@@ -1,8 +1,9 @@
 #!/bin/bash
 DIR="$(dirname $0)"
 cd "$DIR"
-CI_PATH="build/ci"
+source env.sh
 
+CI_PATH="build/ci"
 while [ "$(ls -A out/pending)" ]; do
     for file in out/pending/*; do
         set -m
