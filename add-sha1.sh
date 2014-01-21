@@ -1,4 +1,4 @@
-#!/bin/bash -x
+#!/bin/bash
 DIR="$(dirname $0)"
 cd "$DIR"
 
@@ -16,7 +16,7 @@ chmod a+w out/errcache
 
 echo -n "`date --rfc-3339=seconds` add SHA1 $commit: " >> $DIR/event_log
 if [ -e "out/pass/$commit" -o -e "out/fail/$commit" ]; then
-    echo "'$commit': already built $commit!"
+    echo "already built $commit!"
     if [ "$force" == "-f" ]; then
         rm -f out/pass/$commit out/fail/$commit
         echo "force rebuild" >> $DIR/event_log
