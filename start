@@ -2,4 +2,4 @@
 DIR="$(dirname $0)"
 cd "$DIR"
 
-LC_ALL=en_US.UTF-8 exec ./add-head.sh
+LC_ALL=en_US.UTF-8 exec ./add-head.sh gfs
