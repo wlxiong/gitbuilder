@@ -2,10 +2,8 @@
 DIR="$(dirname $0)"
 cd "$DIR"
 
-project=$1
+action=$1
 force=$2
-
-[ "$project" == "gfs" ] || exit 0
 
 if [ ! -d build/. ]; then
 	echo >&2
@@ -50,5 +48,5 @@ if [ -f "lock.lock" ]; then
 	exit 0
 fi
 
-./runlock lock ./autobuild.sh
+./runlock lock $action
 exit 0

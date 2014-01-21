@@ -2,11 +2,9 @@
 DIR="$(dirname $0)"
 cd "$DIR"
 
-project=$1
+action=$1
 commit=$2
 force=$3
-
-[ "$project" == "gfs" ] || exit 0
 
 mkdir -p out/pass out/fail out/ignore out/errcache out/pending out/test out/nightly
 chmod a+w out/errcache
@@ -16,7 +14,7 @@ chmod a+w out/errcache
   ../timeout.sh 60 git remote update &&
   ../timeout.sh 60 git fetch gerrit refs/changes/*:refs/remotes/gerrit/changes/* )
 
-echo -n "`date --rfc-3339=seconds` add commit $commit: " >> $DIR/event_log
+echo -n "`date --rfc-3339=seconds` add SHA1 $commit: " >> $DIR/event_log
 if [ -e "out/pass/$commit" -o -e "out/fail/$commit" ]; then
     echo "'$commit': already built $commit!"
     if [ "$force" == "-f" ]; then
@@ -38,5 +36,5 @@ if [ -f "lock.lock" ]; then
     exit 0
 fi
 
-./runlock lock ./autoreview.sh
+./runlock lock $action
 exit 0
