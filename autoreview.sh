@@ -11,10 +11,11 @@ while [ "$(ls -A out/pending)" ]; do
         # clean up build/
         ./clean-dir.sh $ref
         # run ci build and test
-        if [ -f $CI_PATH/run.sh ]; then
-            $CI_PATH/run-review.sh $file
+        review_script=$CI_PATH/run-review.sh
+        if [ -f "$review_script" ]; then
+            $review_script $file
         else
-            echo "cannot find $CI_PATH/run.sh" > out/fail/$ref
+            echo "cannot find $review_script" > out/fail/$ref
         fi
         rm $file
     done

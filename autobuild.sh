@@ -11,10 +11,11 @@ while [ "$(ls -A out/pending)" ]; do
         # clean up build/
         ./clean-dir.sh $ref
         # run build
-        if [ -f $CI_PATH/run-build.sh ]; then
-            $CI_PATH/run-build.sh $ref | tee out/log
+        build_script=$CI_PATH/run-build.sh
+        if [ -f "$build_script" ]; then
+            $build_script $ref | tee out/log
         else
-            echo "cannot find $CI_PATH/run-build.sh" > out/fail/$ref
+            echo "cannot find $build_script" > out/fail/$ref
         fi
         rm $file
     done
