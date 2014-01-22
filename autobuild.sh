@@ -16,10 +16,6 @@ while [ "$(ls -A out/pending)" ]; do
         else
             echo "cannot find $CI_PATH/run-build.sh" > out/fail/$ref
         fi
-        # make archive
-        if [ -f out/pass/$ref ]; then
-            $CI_PATH/archive-bin.sh $ref
-        fi
         rm $file
     done
 done

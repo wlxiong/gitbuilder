@@ -12,7 +12,7 @@ while [ "$(ls -A out/pending)" ]; do
         ./clean-dir.sh $ref
         # run ci build and test
         if [ -f $CI_PATH/run.sh ]; then
-            $CI_PATH/run.sh $file
+            $CI_PATH/run-review.sh $file
         else
             echo "cannot find $CI_PATH/run.sh" > out/fail/$ref
         fi
