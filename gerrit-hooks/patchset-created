@@ -35,9 +35,7 @@ def main():
             commit = a
         elif o == '--branch':
             branch = a
-            if branch not in ('dev', '4.0.0'):
-                sys.exit(0)
-    print project, commit
+    print project, branch, commit
     
     if project is None or commit is None:
         print >> sys.stderr, "cannot find --project or --commit argument"
