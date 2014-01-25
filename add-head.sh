@@ -36,7 +36,6 @@ for branch in "$branch_list"; do
 		    rm -f out/pass/$ref out/fail/$ref
 		    echo "force rebuild" >> $DIR/event_log
 		else
-			echo "$branch: already up to date."
 		    echo "already built" >> $DIR/event_log
 		    continue
 		fi
