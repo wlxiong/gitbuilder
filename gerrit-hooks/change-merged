@@ -44,7 +44,7 @@ def main():
 
     script = "/home/root1/autobuilder/start"
     command = "nohup /bin/bash -l -c \"%s %s %s > autobuilder.out 2> autobuilder.err < /dev/null &\"" % \
-              (script, "build head", branch)
+              (script, "build head", "gerrit/" + branch)
     if branch == '3.6.2':
       subprocess.call(["ssh", 'root@10.10.109.131', command])
     else:
