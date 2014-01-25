@@ -84,7 +84,8 @@ sub list_branches()
     return @out;
 }
 
-my $title = "Autobuilder results";
+my $title = $ENV{"AUTOBUILDER_TITLE"};
+($title eq "") && $title = "Autobuilder results";
 my $project_name = project_name();
 if ($project_name) {
     $title .= " for $project_name";
