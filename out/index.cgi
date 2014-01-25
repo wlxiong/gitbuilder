@@ -84,8 +84,9 @@ sub list_branches()
     return @out;
 }
 
-my $title = $ENV{"AUTOBUILDER_TITLE"};
-($title eq "") && $title = "Autobuilder results";
+my $gcc_version=`gcc --version | head -n 1 | awk \'{ print \$3 }\'`;
+my $centos_version=`cat /etc/redhat-release`;
+my $title = "Autobuilder on " . $centos_version . " using gcc " . $gcc_version;
 my $project_name = project_name();
 if ($project_name) {
     $title .= " for $project_name";
