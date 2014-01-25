@@ -3,7 +3,8 @@ DIR="$(dirname $0)"
 cd "$DIR"
 
 action=$1
-force=$2
+branch_list=$2
+force=$3
 
 if [ ! -d build/. ]; then
 	echo >&2
@@ -23,7 +24,10 @@ chmod a+w out/errcache
   git remote show &&
   ../timeout.sh 60 git remote update )
 
-for branch in $(./branches.sh); do
+if [ -z "$branch_list" ]; then
+	branch_list=$(./branches.sh)
+fi
+for branch in "$branch_list"; do
 	ref=$(./next-rev.sh $branch)
 	echo -n "`date +"%Y-%m-%d %T"` add HEAD $ref: " >> $DIR/event_log
 	if [ -e "out/pass/$ref" -o -e "out/fail/$ref" ]; then
