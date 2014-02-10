@@ -21,7 +21,7 @@ my $commitlink = commitlink($commit, $commit);
 print h1("Autobuilder log for <b><u>$name</u></b> ($commitlink):");
 
 my $fn;
-if ("$type" == "test") {
+if ($type eq "test") {
     if (-f "test/$commit/setup_log") {
         $fn = "test/$commit/setup_log"
     } else {
