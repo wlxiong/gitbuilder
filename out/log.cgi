@@ -5,6 +5,7 @@ use lib ".";
 use Autobuilder;
 
 my $commit = param('log');
+my $type = param('type');
 $commit =~ s/[^0-9A-Za-z]/_/g;
 $commit =~ s/^\./_/;
 
@@ -20,15 +21,24 @@ my $commitlink = commitlink($commit, $commit);
 print h1("Autobuilder log for <b><u>$name</u></b> ($commitlink):");
 
 my $fn;
-if (-f "pass/$commit") {
-    $fn = "pass/$commit";
-} elsif (-f "fail/$commit") {
-    $fn = "fail/$commit";
-} elsif (-f "log") {
-    $fn = "log";
+if ("$type" == "test") {
+    if (-f "test/$commit/setup_log") {
+        $fn = "test/$commit/setup_log"
+    } else {
+        print h2("No log with id: $commit.");
+        exit 1;
+    }
 } else {
-    print h2("No log with that id.");
-    exit 1;
+    if (-f "pass/$commit") {
+        $fn = "pass/$commit";
+    } elsif (-f "fail/$commit") {
+        $fn = "fail/$commit";
+    } elsif (-f "log") {
+        $fn = "log";
+    } else {
+        print h2("No log with id: $commit.");
+        exit 1;
+    }
 }
 
 open my $fh, "<$fn"
