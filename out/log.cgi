@@ -15,7 +15,12 @@ print header(-type => 'text/html; charset=utf-8'),
 	-style => {-src => "log.css"}
 );
 
-print div({-style=>'float: right'}, a({-href=>"."}, "<< index"));
+if ($type eq "test") {
+    print div({-style=>'float: right'}, a({-href=>"."}, "<< index"), a({-href=>"../test-log/$commit"}, "details >>"));
+} else {
+    print div({-style=>'float: right'}, a({-href=>"."}, "<< index"));
+}
+
 my $name = git_describe($commit);
 my $commitlink = commitlink($commit, $commit);
 print h1("Autobuilder log for <b><u>$name</u></b> ($commitlink):");
