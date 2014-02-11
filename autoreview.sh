@@ -18,6 +18,6 @@ while [ "$(ls -A out/pending)" ]; do
             echo "cannot find $review_script" > out/fail/$ref
         fi
         rm $file
-        echo "No build is running." > tee out/autobuilder.log
+        echo "No build is running." > out/autobuilder.log
     done
 done
