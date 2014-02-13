@@ -13,7 +13,7 @@ while [ "$(ls -A out/pending)" ]; do
         # run build
         build_script=$CI_PATH/run-build.sh
         if [ -f "$build_script" ]; then
-            $build_script $ref | tee out/log | tee out/build_log
+            $build_script $ref | tee out/log | tee build_log
         else
             echo "cannot find $build_script" > out/fail/$ref
         fi
