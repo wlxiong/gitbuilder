@@ -25,9 +25,9 @@ chmod a+w out/errcache
   ../timeout.sh 60 git remote update )
 
 if [ -z "$branch_list" ]; then
-	branch_list=$(./branches.sh)
+	branch_list="$(./branches.sh)"
 fi
-for branch in "$branch_list"; do
+for branch in $branch_list; do
 	ref=$(./next-rev.sh $branch)
 	echo -n "`date +"%Y-%m-%d %T"` add HEAD $ref: " >> $DIR/event_log
 	if [ -e "out/pass/$ref" -o -e "out/fail/$ref" ]; then
@@ -43,7 +43,6 @@ for branch in "$branch_list"; do
 		echo "accept" >> $DIR/event_log
 	fi
 	echo "Add HEAD $branch: $ref"
-	touch "out/pending/$ref"
 	echo "git" > out/pending/$ref
 done
 
