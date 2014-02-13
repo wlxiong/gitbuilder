@@ -1,6 +1,6 @@
 #!/bin/bash
 
-timeout=`which timeout`
+timeout=`which timeout 2>/dev/null`
 if [ -f "$timeout" ]; then
     $timeout $@
 else
