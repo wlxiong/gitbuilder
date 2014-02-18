@@ -1,7 +1,7 @@
 #!/usr/bin/perl -w
 use strict;
 
-use lib "out/";
+use lib ".";
 use Autobuilder;
 
 my $commit = $ARGV[0];
