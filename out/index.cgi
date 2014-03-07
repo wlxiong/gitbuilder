@@ -298,6 +298,9 @@ for my $bpb (sort { lc($a) cmp lc($b) } @branchlist) {
 }
 
 print end_table();
+
+my $server_time = `date +"%Y-%m-%d %T"`;
+print p({align=>"center"}, "Server time: $server_time");
 my $update_time = `cat ../event_log | grep HEAD | tail -n 1 | awk \'{ print \$1, \$2 }\'`;
 print p({align=>"center"}, "Updated at $update_time");
 
