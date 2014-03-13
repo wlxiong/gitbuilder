@@ -45,12 +45,13 @@ def main():
         return
 
     script = "/home/root1/autobuilder/start"
-    command = "nohup /bin/bash -l -c \"%s %s %s > autobuilder.out 2> autobuilder.err < /dev/null &\"" % \
-              (script, "review sha1", commit)
-    if branch == '3.6.2':
+    command = "nohup /bin/bash -l -c \"%s %s %s %s > autobuilder.out 2> autobuilder.err < /dev/null &\"" % \
+              (script, "review sha1", commit, branch)
+    if '3.6' in branch:
         subprocess.call(["ssh", 'root@10.10.109.131', command])
     else:
         subprocess.call(["ssh", 'root@10.10.200.116', command])
+
 
 if __name__ == '__main__':
     main()
