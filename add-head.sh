@@ -37,7 +37,8 @@ for branch in $branch_list; do
 		echo "accept" >> $DIR/event_log
 	fi
 	echo "Add HEAD in $branch: $ref"
-	echo "$branch" > out/pending/$ref
+	version="$(./get-version.sh $branch $ref)"
+	echo "$version" > out/pending/$COMMIT
 done
 
 if [ -f "lock.lock" ]; then

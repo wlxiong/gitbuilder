@@ -43,7 +43,7 @@ def main():
         return
 
     script = "/home/root1/autobuilder/start"
-    command = "nohup /bin/bash -l -c \"%s %s %s > autobuilder.out 2> autobuilder.err < /dev/null &\"" % \
+    command = "nohup /bin/bash -l -c \"%s %s %s > /home/root1/autobuilder/autobuilder.out 2>&1 < /dev/null &\"" % \
               (script, "build head", branch)
     if '3.6' in branch:
         subprocess.call(["ssh", 'root@10.10.109.131', command])

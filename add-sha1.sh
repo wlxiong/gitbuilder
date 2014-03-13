@@ -24,7 +24,8 @@ else
 fi
 
 echo "Add commit in $branch: $commit"
-echo "$branch" > out/pending/$commit
+version="$(./get-version.sh $branch $ref)"
+echo "$version" > out/pending/$COMMIT
 
 if [ -f "lock.lock" ]; then
     exit 0
