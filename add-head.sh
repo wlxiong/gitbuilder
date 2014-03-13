@@ -27,7 +27,7 @@ if [ -z "$branch_list" ]; then
 	branch_list="$(./branches.sh)"
 fi
 for branch in $branch_list; do
-	ref=$(./next-rev.sh gerrit/$branch)
+	ref=$(./next-rev.sh $branch)
 	echo -n "`date +"%Y-%m-%d %T"` add HEAD $ref: " >> $DIR/event_log
 	if [ -e "out/pass/$ref" -o -e "out/fail/$ref" ]; then
 		echo "$branch: already built $ref!"

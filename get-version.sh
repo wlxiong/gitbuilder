@@ -2,7 +2,7 @@
 DIR="$(dirname $0)"
 cd "$DIR"
 
-BRANCH=$1
+BRANCH=`basename $1`
 COMMIT=$2
 
 # collect version info
