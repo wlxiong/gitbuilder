@@ -9,6 +9,6 @@ COMMIT=$2
 cd ./build
 COMMIT_DATE=`git show -s --pretty=format:%ci $COMMIT | sed 's/-//g'`
 COMMIT_DATE=${COMMIT_DATE:0:8}
-COMMIT_HASH=`git show -s --pretty=format:%h $COMMIT --abbrev=4`
+COMMIT_HASH=`git show -s --pretty=format:%h $COMMIT --abbrev=7`
 VERSION="${BRANCH}.${COMMIT_DATE}_${COMMIT_HASH}"
 echo "$VERSION"
