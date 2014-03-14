@@ -11,8 +11,7 @@ chmod a+w out/errcache
 
 ( cd build &&
   git remote show &&
-  ../timeout.sh 60 git fetch gerrit &&
-  ../timeout.sh 60 git fetch gerrit refs/changes/*:refs/remotes/gerrit/changes/* )
+  git fetch gerrit refs/changes/*:refs/remotes/gerrit/changes/* )
 
 echo -n "`date +"%Y-%m-%d %T"` add SHA1 $commit: " >> $DIR/event_log
 if [ -e "out/pass/$commit" -o -e "out/fail/$commit" ]; then

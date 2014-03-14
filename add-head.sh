@@ -21,7 +21,7 @@ chmod a+w out/errcache
 
 ( cd build &&
   git remote show &&
-  ../timeout.sh 60 git fetch gerrit )
+  git fetch gerrit )
 
 if [ -z "$branch_list" ]; then
 	branch_list="$(./branches.sh)"
