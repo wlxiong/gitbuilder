@@ -6,6 +6,8 @@ action=$1
 object=$2
 args="${@:3}"
 
+echo "$0 $@" > ./start_event
+
 [ "$action" == "build" ] && action="./autobuild.sh"
 [ "$action" == "review" ] && action="./autoreview.sh"
 [ "$object" == "head" ] && object="./add-head.sh"

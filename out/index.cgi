@@ -211,7 +211,8 @@ for my $bpb (sort { lc($a) cmp lc($b) } @branchlist) {
 	
 	my $failed;
 	my $logcgi = "log.cgi?type=build&log=$commit";
-	my $rebuildcgi = "rebuild.cgi?log=$commit";
+	my $shortbranch = `basename $branch`;
+	my $rebuildcgi = "rebuild.cgi?branch=$shortbranch&rebuild=$commit";
 	my $testlog = "log.cgi?type=test&log=$commit";
 	my $version = `../get-version.sh $branch $commit`;
 	my $nightly = "../nightly-build/gfs-bin-$version.tar.gz";
@@ -219,10 +220,10 @@ for my $bpb (sort { lc($a) cmp lc($b) } @branchlist) {
 	my $commitlink = commitlink($commit, shorten($commit, 7, ""));
 	$comment =~ s/^\s*-?\s*//;
 	
-        sub pushrow(\@$$$$$$$$)
+        sub pushrow(\@$$$$$$$$$)
         {
             my ($_branchout, $status, $commitlink,
-                $email, $codestr, $comment, $logcgi, $testlog, $nightly) = @_;
+                $email, $codestr, $comment, $logcgi, $testlog, $nightly, $rebuildcgi) = @_;
                 
             my $statcode = status_to_statcode($status);
             
@@ -236,13 +237,16 @@ for my $bpb (sort { lc($a) cmp lc($b) } @branchlist) {
                     td({class=>"committer"}, $email),
                     td({class=>"details"},
                         a({class=>"hyper", name=>$branch}, "") . div(
-                          span({class=>"codestr"},
-                            $logcgi ? a({-href=>$logcgi}, $codestr) : $codestr),
-                          span({class=>"comment"}, $comment,
-                            ("$statcode" eq "ok" || "$statcode" eq "warn") ? "[" .
-                              a({-href=>$testlog}, "Test Log") : "",
-                            ("$statcode" eq "ok" || "$statcode" eq "warn") ? " | " . 
-                              a({-href=>$nightly}, "Nightly Build") . "]" : "")
+                          span({class=>"comment"},
+                            $logcgi ? a({-href=>$logcgi}, 
+				("$statcode" eq "ok") ? "Build" : $codestr) : $codestr,
+                            ("$statcode" eq "ok" || "$statcode" eq "warn") ? ", " .
+                              a({-href=>$testlog}, "Test") : "",
+                            ("$statcode" eq "ok" || "$statcode" eq "warn") ? ", " .
+                              a({-href=>$nightly}, "Nightly") : ""),
+                          span({class=>"comment"}, $comment),
+                          span({class=>"comment"},
+                              a({-href=>$rebuildcgi}, "[ Rebuild ]"))
                         ))
                     );
             $branchprint = "";
@@ -257,17 +261,17 @@ for my $bpb (sort { lc($a) cmp lc($b) } @branchlist) {
 	} elsif ($commit eq $currently_doing) {
 	    # currently building this one
 	    pushrow(@branchout, "BUILDING", 
-	            $commitlink, $email, "build log", $comment, $logcgi, "", "");
+	            $commitlink, $email, "build log", $comment, $logcgi, "", "", "");
 	    next;
 	} elsif ($print_pending && -f "pending/$commit") {
 	    # first pending in a group: print (Pending)
 	    pushrow(@branchout, "(Pending)",
-	            $commitlink, $email, "", $comment, "", "", "");
+	            $commitlink, $email, "", $comment, "", "", "", "");
 	    next;
 	} elsif ($print_pending) {
 	    # first pending in a group: print (Pending)
 	    pushrow(@branchout, "N/A",
-	            $commitlink, $email, "", $comment, "", "", "");
+	            $commitlink, $email, "", $comment, "", "", "", "");
 	    $last_was_pending++;
 	    next;
 	} else {
@@ -280,7 +284,7 @@ for my $bpb (sort { lc($a) cmp lc($b) } @branchlist) {
 	my $status = ($warnmsg eq "ok") ? "ok" 
 	    : ($warnmsg =~ /^Warnings\(\d+\)$/) ? "Warn" : "FAIL";
 	pushrow(@branchout, $status,
-		$commitlink, $email, $warnmsg, $comment, $logcgi, $testlog, $nightly);
+		$commitlink, $email, $warnmsg, $comment, $logcgi, $testlog, $nightly, $rebuildcgi);
     }
     
     do_pending_dots(@branchout);

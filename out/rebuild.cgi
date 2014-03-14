@@ -4,19 +4,14 @@ use CGI::Pretty qw/:standard/;
 use lib ".";
 use Autobuilder;
 
-my $commit = param('log');
+my $branch = param('branch');
+my $commit = param('rebuild');
 $commit =~ s/[^0-9A-Za-z]/_/g;
 $commit =~ s/^\./_/;
 
-my $fn;
-foreach $fn ("fail/$commit", "pass/$commit") {
-    if (-f $fn) {
-        unlink($fn);
-    }
-}
 unless (-f "pending/$commit") {
-    system("touch pending/$commit");
-    system("../start > /dev/null 2>&1 &");
+    my $autobuilder = "/home/root1/autobuilder";
+    system("nohup sudo $autobuilder/start build sha1 $commit $branch > /dev/null 2>&1 < /dev/null &");
 }
 
 print redirect(-location=>".");
