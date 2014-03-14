@@ -124,7 +124,6 @@ td.status-warn, td.status-err {
 
 td.committer {
 	color: #666666;
-	font-family: monospace;
 }
 
 td.commit {
@@ -142,7 +141,6 @@ span.link {
 
 span.comment {
 	font-size: small;
-	font-family: monospace;
 }
 
 div.update {
