@@ -306,7 +306,7 @@ print end_table();
 
 my $server_time = `date +"%Y-%m-%d %T"`;
 print div({class=>"update"}, "Server time: $server_time");
-my $update_time = `cat ../event_log | grep HEAD | tail -n 1 | awk \'{ print \$1, \$2 }\'`;
+my $update_time = `tail -n 10 ../event_log | grep add | tail -n 1 | awk \'{ print \$1, \$2 }\'`;
 print div({class=>"update"}, "Last build at: $update_time");
 my $update_info = `sudo ../git-update.sh 2>&1`;
 print div({class=>"update"}, "$update_info");
