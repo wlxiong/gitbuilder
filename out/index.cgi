@@ -240,9 +240,9 @@ for my $bpb (sort { lc($a) cmp lc($b) } @branchlist) {
                           span({class=>"link"},
                             $logcgi ? a({-href=>$logcgi}, 
 				("$statcode" eq "ok") ? "Build" : $codestr) : $codestr,
-                            ("$statcode" eq "ok" || "$statcode" eq "warn") ? "| " .
+                            ("$statcode" eq "ok" || "$statcode" eq "warn") ? "/ " .
                               a({-href=>$testlog}, "Test") : "",
-                            ("$statcode" eq "ok" || "$statcode" eq "warn") ? "| " .
+                            ("$statcode" eq "ok" || "$statcode" eq "warn") ? "/ " .
                               a({-href=>$nightly}, "Nightly") : "")
                         )),
                     td({class=>"details"},
