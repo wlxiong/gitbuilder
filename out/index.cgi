@@ -304,9 +304,11 @@ for my $bpb (sort { lc($a) cmp lc($b) } @branchlist) {
 print end_table();
 
 my $server_time = `date +"%Y-%m-%d %T"`;
-print p({align=>"center"}, "Server time: $server_time");
+print pre({align=>"center"}, "Server time: $server_time");
 my $update_time = `cat ../event_log | grep HEAD | tail -n 1 | awk \'{ print \$1, \$2 }\'`;
-print p({align=>"center"}, "Updated at $update_time");
+print pre({align=>"center"}, "Last build at: $update_time");
+my $update_info = `sudo ../git-update.sh 2>&1`;
+print pre({align=>"center"}, "$update_info");
 
 print div({class=>"extraspace"}, "&nbsp;");
 print end_html;
