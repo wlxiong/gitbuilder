@@ -145,6 +145,13 @@ span.comment {
 	font-family: monospace;
 }
 
+div.update {
+	margin: 0.5em;
+	font-size: small;
+	font-family: monospace;
+	text-align: center;
+}
+
 tr.spacer td {
 	padding: 0.5em;
 }
