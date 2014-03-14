@@ -174,7 +174,7 @@ print end_ul, end_div;
 print start_table({class=>"results",align=>"center"});
 print Tr({class=>"resultheader"},
     th({style=>'text-align: right'}, "Branch"),
-    th("Status"), th("Commit"), th("Who"), th("Result"), th(""));
+    th("Status"), th("Commit"), th("Who"), th("Result"), th("Comment"));
     
 sub spacer()
 {
@@ -237,17 +237,18 @@ for my $bpb (sort { lc($a) cmp lc($b) } @branchlist) {
                     td({class=>"committer"}, $email),
                     td({class=>"details"},
                         a({class=>"hyper", name=>$branch}, "") . div(
-                          span({class=>"comment"},
+                          span({class=>"link"},
                             $logcgi ? a({-href=>$logcgi}, 
 				("$statcode" eq "ok") ? "Build" : $codestr) : $codestr,
-                            ("$statcode" eq "ok" || "$statcode" eq "warn") ? ", " .
+                            ("$statcode" eq "ok" || "$statcode" eq "warn") ? "| " .
                               a({-href=>$testlog}, "Test") : "",
-                            ("$statcode" eq "ok" || "$statcode" eq "warn") ? ", " .
-                              a({-href=>$nightly}, "Nightly") : ""),
-                          span({class=>"comment"}, $comment),
-                          span({class=>"comment"},
-                              a({-href=>$rebuildcgi}, "[ Rebuild ]"))
-                        ))
+                            ("$statcode" eq "ok" || "$statcode" eq "warn") ? "| " .
+                              a({-href=>$nightly}, "Nightly") : "")
+                        )),
+                    td({class=>"details"},
+                          span({class=>"comment"}, "  " . $comment),
+                          span({class=>"link"},
+                              a({-href=>$rebuildcgi}, "[ Rebuild ]")))
                     );
             $branchprint = "";
         }

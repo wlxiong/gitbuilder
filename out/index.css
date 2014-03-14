@@ -96,6 +96,7 @@ table.results td.details {
 .branch {
 	color: #666666;
 	text-align: right;
+	font-family: monospace;
 }
 .branch b {
 	color: black;
@@ -123,15 +124,25 @@ td.status-warn, td.status-err {
 
 td.committer {
 	color: #666666;
+	font-family: monospace;
+}
+
+td.commit {
+	font-family: monospace;
 }
 
 span.codestr {
 	color: black;
 }
 
-span.comment {
-	color: #666666;
+span.link {
 	font-size: small;
+	font-family: monospace;
+}
+
+span.comment {
+	font-size: small;
+	font-family: monospace;
 }
 
 tr.spacer td {
