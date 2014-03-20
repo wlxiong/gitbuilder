@@ -21,7 +21,7 @@ chmod a+w out/errcache
 
 ( cd build &&
   git remote show &&
-  git fetch gerrit )
+  git fetch gerrit refs/heads/*:refs/heads/* )
 
 if [ -z "$branch_list" ]; then
 	branch_list="$(./branches.sh)"
