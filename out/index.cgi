@@ -143,6 +143,8 @@ sub status_to_statcode($)
         return "pending";
     } elsif ($status eq "(Pending)") {
         return "pending";
+    } elsif ($status eq "N/A") {
+        return "na";
     } elsif ($status =~ m{^W[^/]*$}) {
         return "warn";
     } else {

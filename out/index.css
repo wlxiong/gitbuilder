@@ -118,6 +118,12 @@ span.status:hover {
 .status-err {
 	background: #ffcccc;
 }
+.status-na {
+	background: #eeeeee;
+}
+.status-pending {
+	background: #ffffff;
+}
 td.status-warn, td.status-err {
 	font-weight: bold;
 }
