@@ -14,17 +14,14 @@ chmod a+w out/errcache
   git fetch gerrit &&
   git fetch gerrit refs/changes/*:refs/remotes/gerrit/changes/* )
 
-echo -n "`date +"%Y-%m-%d %T"` add SHA1 $commit: " >> $DIR/event_log
+echo "`date +"%Y-%m-%d %T"` add SHA1 $commit: $action" >> $DIR/event_log
 if [ -e "out/pass/$commit" -o -e "out/fail/$commit" ]; then
     echo "already built $commit!"
     rm -f out/pass/$commit out/fail/$commit
-    echo "rebuild" >> $DIR/event_log
-else
-    echo "accept" >> $DIR/event_log
 fi
 
 echo "Add commit in $branch: $commit"
-echo "$branch sha1 $commit review" > out/pending/$commit
+echo "$branch sha1 $commit $action" > out/pending/$commit
 
 if [ -f "lock.lock" ]; then
     exit 0

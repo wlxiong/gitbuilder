@@ -29,13 +29,10 @@ if [ -z "$branch_list" ]; then
 fi
 for branch in $branch_list; do
 	ref=$(./next-rev.sh $branch)
-	echo -n "`date +"%Y-%m-%d %T"` add HEAD $ref: " >> $DIR/event_log
+	echo "`date +"%Y-%m-%d %T"` add HEAD $ref: $action" >> $DIR/event_log
 	if [ -e "out/pass/$ref" -o -e "out/fail/$ref" ]; then
 		echo "$branch: already built $ref!"
-	    rm -f out/pass/$ref out/fail/$ref
-	    echo "rebuild" >> $DIR/event_log
-	else
-		echo "accept" >> $DIR/event_log
+		rm -f out/pass/$ref out/fail/$ref
 	fi
 	echo "Add HEAD in $branch: $ref"
 	echo "$branch head $ref $action" > out/pending/$ref
