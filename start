@@ -8,9 +8,5 @@ args="${@:3}"
 
 echo "$0 $@" > ./start_event
 
-[ "$action" == "build" ] && action="./autobuild.sh"
-[ "$action" == "review" ] && action="./autoreview.sh"
-[ "$object" == "head" ] && object="./add-head.sh"
-[ "$object" == "sha1" ] && object="./add-sha1.sh"
-
-exec $object $action $args
+[ "$object" = "head" ] && exec ./add-head.sh $action $args
+[ "$object" = "sha1" ] && exec ./add-sha1.sh $action $args

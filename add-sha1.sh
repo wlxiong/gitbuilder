@@ -24,11 +24,12 @@ else
 fi
 
 echo "Add commit in $branch: $commit"
-echo "$branch" > out/pending/$commit
+echo "$branch sha1 $commit review" > out/pending/$commit
 
 if [ -f "lock.lock" ]; then
     exit 0
 fi
 
-./runlock lock $action
+./runlock lock ./autorun.sh
+
 exit 0

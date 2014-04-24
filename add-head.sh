@@ -38,12 +38,13 @@ for branch in $branch_list; do
 		echo "accept" >> $DIR/event_log
 	fi
 	echo "Add HEAD in $branch: $ref"
-	echo "$branch" > out/pending/$ref
+	echo "$branch head $ref $action" > out/pending/$ref
 done
 
 if [ -f "lock.lock" ]; then
 	exit 0
 fi
 
-./runlock lock $action
+./runlock lock ./autorun.sh
+
 exit 0
