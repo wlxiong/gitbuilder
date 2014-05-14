@@ -8,6 +8,7 @@
 #
 # You might want to run ./configure here, make, make test, etc.
 #
+source env.sh
 
 # Actually build the project
 [[ -d build_fuse ]] && rm -rf build_fuse
