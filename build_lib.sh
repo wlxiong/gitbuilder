@@ -9,12 +9,14 @@
 # You might want to run ./configure here, make, make test, etc.
 #
 source env.sh
+ref="gerrit/dev"
+[ -n "$1" ] && ref="$1"
 
 # Actually build the project
 [[ -d build_lib ]] && rm -rf build_lib
 mkdir build_lib
 
-git --git-dir=build/.git --work-tree=build_lib/ checkout gerrit/dev -- lib/3rd
+git --git-dir=build/.git --work-tree=build_lib/ checkout "$ref" -- lib/3rd
 cd build_lib/lib/3rd && ./build.sh || exit 3
 
 exit 0

@@ -9,13 +9,15 @@
 # You might want to run ./configure here, make, make test, etc.
 #
 source env.sh
+ref="gerrit/dev"
+[ -n "$1" ] && ref="$1"
 
 # Actually build the project
 [[ -d build_gmock ]] && rm -rf build_gmock
 mkdir build_gmock
 
 unittest=testcases/unit
-git --git-dir=build/.git --work-tree=build_gmock/ checkout gerrit/dev -- $unittest
+git --git-dir=build/.git --work-tree=build_gmock/ checkout "$ref" -- $unittest
 cd build_gmock/$unittest && ./build_gmock.sh || exit 3
 
 exit 0
