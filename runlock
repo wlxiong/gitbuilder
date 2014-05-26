@@ -35,18 +35,17 @@ def lockFile(lockfile):
         if pid is not None:
             # check if the process is running
             try:
-                ret = os.kill(int(pid), 0)
+                os.kill(int(pid), 0)
             except OSError:
                 print >> sys.stderr, "Removing lock file for old process: %d" % pid
                 os.remove(lockfile)
             else:
-                if ret is None:
-                    print >> sys.stderr, "Already have a process running: %d" % pid
-                    return False
+                print >> sys.stderr, "Already have a process running: %d" % pid
+                return False
     # put a PID file in the lock file
     pidfile = open(lockfile, "w")
     pidfile.write("%s" % os.getpid())
-    pidfile.close
+    pidfile.close()
     return True
 
 
