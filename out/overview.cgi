@@ -25,7 +25,7 @@ sub summarize_gitbuilder {
 
 print "<html>\n";
 print "<head>\n";
-print "<script src=\"//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js\"></script>\n";
+print "<script src=\"/autobuilder/jquery-1.10.2.min.js\"></script>\n";
 print "<title>GFS autobuilders</title><link rel=\"stylesheet\" type=\"text/css\" href=\"overview.css\" />";
 print "<META HTTP-EQUIV=\"REFRESH\" CONTENT=\"600\">\n";
 print "</head>\n";
