@@ -27,6 +27,7 @@ def main():
 
     project = None
     commit = None
+    draft = False
 
     for o, a in opts:
         if o == '--project':
@@ -35,13 +36,18 @@ def main():
             commit = a
         elif o == '--branch':
             branch = a
-    print project, branch, commit
+        elif o == '--is-draft':
+            draft = True
+    print project, branch, commit, "draft" if draft else "change"
     
     if project is None or commit is None:
         print >> sys.stderr, "cannot find --project or --commit argument"
         sys.exit(2)
 
     if project != 'gfs':
+        return
+
+    if draft:
         return
 
     script = "/home/root1/autobuilder/start"
