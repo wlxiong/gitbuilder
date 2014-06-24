@@ -90,7 +90,7 @@ table.results td.loglink {
 
 table.results td.details {
 	padding-left: 2em;
-	text-indent: -2em;
+	text-indent: -1em;
 }
 
 .branch {

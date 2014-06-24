@@ -173,7 +173,7 @@ for my $bpb (sort { branch_age($a) <=> branch_age($b) } @branchlist) {
 print end_ul, end_div;
 
 
-print start_table({class=>"results",align=>"center"});
+print start_table({class=>"results", width=>"90%", align=>"center"});
 print Tr({class=>"resultheader"},
     th({style=>'text-align: right'}, "Branch"),
     th("Status"), th("Commit"), th("Who"), th("Result"), th("Comment"));
@@ -246,7 +246,7 @@ for my $bpb (sort { lc($a) cmp lc($b) } @branchlist) {
                             ("$statcode" eq "ok" || "$statcode" eq "warn") ? "/ " .
                               a({-href=>$nightly}, "Nightly") : "")
                         )),
-                    td({class=>"details"},
+                    td({class=>"details", width=>"60%"},
                           span({class=>"comment"}, "  " . $comment),
                           span({class=>"link"},
                               a({-href=>$rebuildcgi}, "[ Rebuild ]")))
