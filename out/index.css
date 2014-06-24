@@ -143,6 +143,7 @@ span.codestr {
 span.link {
 	font-size: small;
 	font-family: monospace;
+	white-space: nowrap;
 }
 
 span.comment {
