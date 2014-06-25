@@ -18,10 +18,12 @@ sub _cat_line($)
     return undef;
 }
 
+my $project_name;
 sub project_name()
 {
-    return _cat_line('project-name');
+    return $project_name;
 }
+$project_name = _cat_line('project-name');
 
 my $gitweb_url;
 sub gitweb_url()
@@ -43,7 +45,7 @@ sub commitlink($$)
     my ($commit, $text) = @_;
     my $gitweb_url = gitweb_url();
     if ($gitweb_url) {
-	return "<a href=\"$gitweb_url&h=$commit\">"
+	return "<a href=\"$gitweb_url?a=commitdiff;p=$project_name;h=$commit\">"
 	  . $text
 	  . "</a>";
     }
