@@ -220,6 +220,7 @@ for my $bpb (sort { lc($a) cmp lc($b) } @branchlist) {
 	$email =~ s/\@.*//;
 	my $commitlink = commitlink($commit, shorten($commit, 7, ""));
 	$comment =~ s/^\s*-?\s*//;
+	$comment = shorten($comment, 80, "") . ((length($comment) > 80) ? "..." : "");
 	
         sub pushrow(\@$$$$$$$$$)
         {
