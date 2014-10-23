@@ -32,10 +32,10 @@ for branch in $branch_list; do
 	echo "`date +"%Y-%m-%d %T"` add HEAD $ref: $action" >> $DIR/event_log
 	if [ -e "out/pass/$ref" -o -e "out/fail/$ref" ]; then
 		echo "$branch: already built $ref!"
-		rm -f out/pass/$ref out/fail/$ref
+	else
+		echo "Add HEAD in $branch: $ref"
+		echo "$branch head $ref $action" > out/pending/$ref
 	fi
-	echo "Add HEAD in $branch: $ref"
-	echo "$branch head $ref $action" > out/pending/$ref
 done
 
 if [ -f "lock.lock" ]; then
