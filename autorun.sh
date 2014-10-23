@@ -11,7 +11,7 @@ run_script() {
     ./clean-dir.sh $ref
     # run build
     if [ -f "$script" ]; then
-        ./timeout.sh $timeout $script $ref | tee out/log | tee build_log
+        ./maxtime $timeout $script $ref | tee out/log | tee build_log
     else
         echo "cannot find $script" > out/fail/$ref
     fi
