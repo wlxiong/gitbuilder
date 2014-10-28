@@ -27,7 +27,7 @@ def main():
 
     project = None
     commit = None
-    draft = False
+    draft = None
 
     for o, a in opts:
         if o == '--project':
@@ -37,14 +37,16 @@ def main():
         elif o == '--branch':
             branch = a
         elif o == '--is-draft':
-            draft = True
-    print project, branch, commit, "draft" if draft else "change"
+            draft = a
+
+    print "send patchset to autobuilder:", project, branch, commit
     
     if project is None or commit is None:
         print >> sys.stderr, "cannot find --project or --commit argument"
         sys.exit(2)
 
-    if draft:
+    if draft == "true":
+        print "ignore draft changes"
         return
 
     if project == 'gfs':
@@ -61,6 +63,8 @@ def main():
         command = "nohup /bin/bash -l -c \"%s %s %s %s > /home/root1/autobuilder/autobuilder.out 2>&1 < /dev/null &\"" % \
                   (script, "review sha1", commit, branch)
         subprocess.call(["ssh", 'root@10.10.200.115', command])
+
+    print "complete building patchset:", project, branch, commit
 
 
 if __name__ == '__main__':

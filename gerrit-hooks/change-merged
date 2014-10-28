@@ -33,8 +33,9 @@ def main():
             commit = a
         elif o == '--branch':
             branch = a
-    print project, branch, commit
-    
+
+    print "send change merge to autobuilder:", project, branch, commit
+
     if project is None:
         print >> sys.stderr, "cannot find --project argument"
         sys.exit(2)
@@ -53,6 +54,8 @@ def main():
         command = "nohup /bin/bash -l -c \"%s %s %s %s > /home/root1/autobuilder/autobuilder.out 2>&1 < /dev/null &\"" % \
                   (script, "build head", branch)
         subprocess.call(["ssh", 'root@10.10.200.115', command])
+
+    print "complete building change merge:", project, branch, commit
 
 
 if __name__ == '__main__':
