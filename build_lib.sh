@@ -1,4 +1,4 @@
-#!/bin/bash -x
+#!/bin/bash
 #
 # Copy this file to build.sh so that gitbuilder can run it.
 #
@@ -10,13 +10,21 @@
 #
 source env.sh
 ref="gerrit/dev"
-[ -n "$1" ] && ref="$1"
+
+if [ -z "$1" ]; then
+	echo "usage: $0 <path> [commit]" >&2
+	echo "example: $0 lib/3rd gerrit/dev" >&2
+	exit 1
+fi
+path=$1
+ref="${2:-gerrit/dev}"
+
+rm -rf "build_lib/${path}"
+mkdir -p build_lib
 
 # Actually build the project
-[[ -d build_lib ]] && rm -rf build_lib
-mkdir build_lib
-
-git --git-dir=build/.git --work-tree=build_lib/ checkout "$ref" -- lib/3rd
-cd build_lib/lib/3rd && ./build.sh || exit 3
+set -x
+git --git-dir=build/.git --work-tree=build_lib/ checkout "$ref" -- "$path"
+cd "build_lib/${path}" && ./build.sh || exit 3
 
 exit 0
