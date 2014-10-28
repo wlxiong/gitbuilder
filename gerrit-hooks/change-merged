@@ -35,20 +35,24 @@ def main():
             branch = a
     print project, branch, commit
     
-    if project is None or commit is None:
-        print >> sys.stderr, "cannot find --project or --commit argument"
+    if project is None:
+        print >> sys.stderr, "cannot find --project argument"
         sys.exit(2)
 
-    if project != 'gfs':
-        return
+    if project == 'gfs':
+        script = "/home/root1/autobuilder/start"
+        command = "nohup /bin/bash -l -c \"%s %s %s > /home/root1/autobuilder/autobuilder.out 2>&1 < /dev/null &\"" % \
+                  (script, "build head", branch)
+        if '3.6' in branch:
+            subprocess.call(["ssh", 'root@10.10.109.131', command])
+        else:
+            subprocess.call(["ssh", 'root@10.10.200.116', command])
 
-    script = "/home/root1/autobuilder/start"
-    command = "nohup /bin/bash -l -c \"%s %s %s > /home/root1/autobuilder/autobuilder.out 2>&1 < /dev/null &\"" % \
-              (script, "build head", branch)
-    if '3.6' in branch:
-        subprocess.call(["ssh", 'root@10.10.109.131', command])
-    else:
-        subprocess.call(["ssh", 'root@10.10.200.116', command])
+    if project == 'xkv':
+        script = "/home/root1/autobuilder/start"
+        command = "nohup /bin/bash -l -c \"%s %s %s %s > /home/root1/autobuilder/autobuilder.out 2>&1 < /dev/null &\"" % \
+                  (script, "build head", branch)
+        subprocess.call(["ssh", 'root@10.10.200.115', command])
 
 
 if __name__ == '__main__':
