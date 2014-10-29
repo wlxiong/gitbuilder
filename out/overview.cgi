@@ -7,6 +7,7 @@ my $url = param('url');
 # if you change this, update robots.txt as well
 
 my @urls = (
+		'http://10.10.200.115/autobuilder/',
         'http://10.10.200.116/autobuilder/',
         'http://10.10.109.131/autobuilder/',
         'http://10.10.109.132/autobuilder/',
