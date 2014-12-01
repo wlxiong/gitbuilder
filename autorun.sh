@@ -25,8 +25,8 @@ while [ "$(ls -A out/pending)" ]; do
         ref=`basename $file`
         action=`cat $file | awk '{ print $4 }'`
         echo "`date +"%Y-%m-%d %T"` run HEAD $ref: $action" >> $DIR/event_log
-        [ "$action" = "build" ]  && run_script build/ci/run-build.sh $ref 1800
-        [ "$action" = "review" ] && run_script build/ci/run-review.sh $ref 1800
+        [ "$action" = "build" ]  && run_script build/ci/run-build.sh $ref $TIMEOUT
+        [ "$action" = "review" ] && run_script build/ci/run-review.sh $ref $TIMEOUT
         rm -f $file
     done
 done
