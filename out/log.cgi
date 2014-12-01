@@ -101,6 +101,8 @@ while (defined(my $s = <$fh>))
     } elsif ($s =~ /^\s*(make: \*\*\* .*)/) {
         $class = "error";
         $s = ul($1);
+    } elsif ($s =~ /^.*:\d*: Failure/) {
+        $class = "error";
     } elsif ($s =~ /^!\s*(.*?)\s+(\S+)\s*$/) {
         $class = ($2 ne "ok") ? 'error' : 'buildscript';
     }
