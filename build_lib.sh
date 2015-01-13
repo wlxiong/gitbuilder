@@ -18,6 +18,7 @@ if [ -z "$1" ]; then
 fi
 path=$1
 ref="${2:-gerrit/dev}"
+cmd="${3:-build.sh}"
 
 rm -rf "build_lib/${path}"
 mkdir -p build_lib
@@ -25,6 +26,6 @@ mkdir -p build_lib
 # Actually build the project
 set -x
 git --git-dir=build/.git --work-tree=build_lib/ checkout "$ref" -- "$path"
-cd "build_lib/${path}" && ./build.sh || exit 3
+cd "build_lib/${path}" && ./$cmd || exit 3
 
 exit 0
