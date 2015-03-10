@@ -19,7 +19,7 @@ import subprocess
 def main():
     try:
         opts, args = getopt.getopt(sys.argv[1:], "",
-                                   ["change=", "is-draft=", "change-url=", "project=",
+                                   ["change=", "is-draft=", "kind=", "change-url=", "change-owner=", "project=",
                                     "branch=", "topic=", "uploader=", "commit=", "patchset="])
     except getopt.GetoptError, err:
         print >> sys.stderr, str(err)
